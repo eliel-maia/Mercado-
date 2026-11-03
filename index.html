@@ -76,34 +76,37 @@
   </header>
 
   <!-- Main Container -->
-  <main class="flex-1 max-w-md w-full mx-auto p-3 space-y-3">
+  <main class="flex-1 w-full mx-auto space-y-3 pb-4">
 
-    <!-- Actions & Filter -->
-    <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-2.5">
-      <div class="relative">
-        <input type="text" id="searchInput" placeholder="Buscar item..." class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-500">
-        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+    <!-- Actions & Cards (Mantêm o alinhamento em max-w-md com margens) -->
+    <div class="max-w-md mx-auto px-3 space-y-3 pt-3">
+      <!-- Actions & Filter -->
+      <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-2.5">
+        <div class="relative">
+          <input type="text" id="searchInput" placeholder="Buscar item..." class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-500">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+        
+        <div class="flex gap-2">
+          <button id="addItemBtn" class="flex-1 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5 shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            <span>Novo Item</span>
+          </button>
+          <button id="manageStoresBtn" class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0v-4m0 4h4m-4-4l-4 4m4-4l4 4"></path></svg>
+            <span>Lojas</span>
+          </button>
+        </div>
       </div>
-      
-      <div class="flex gap-2">
-        <button id="addItemBtn" class="flex-1 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5 shadow-sm">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-          <span>Novo Item</span>
-        </button>
-        <button id="manageStoresBtn" class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0v-4m0 4h4m-4-4l-4 4m4-4l4 4"></path></svg>
-          <span>Lojas</span>
-        </button>
+
+      <!-- Store Summary Cards -->
+      <div id="storeSummaries" class="grid grid-cols-2 gap-2">
+        <!-- Injetado dinamicamente via JS -->
       </div>
     </div>
 
-    <!-- Store Summary Cards -->
-    <div id="storeSummaries" class="grid grid-cols-2 gap-2">
-      <!-- Injetado dinamicamente via JS -->
-    </div>
-
-    <!-- Table Container -->
-    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+    <!-- Table Container (Largura Total da Tela) -->
+    <div class="w-full bg-white dark:bg-slate-800 border-y border-slate-200 dark:border-slate-700 overflow-hidden">
       <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-250px)] overflow-y-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
@@ -198,8 +201,8 @@
 
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v4');
-        const savedItems = localStorage.getItem('mc_items_v4');
+        const savedStores = localStorage.getItem('mc_stores_v6');
+        const savedItems = localStorage.getItem('mc_items_v6');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -209,8 +212,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v4', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v4', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v6', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v6', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
