@@ -12,11 +12,12 @@
         extend: {
           colors: {
             brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              500: '#0ea5e9',
-              600: '#0284c7',
-              700: '#0369a1',
+              50: '#f0f0ff',
+              100: '#e1e0ff',
+              500: '#534abf',
+              600: '#4038B7',
+              700: '#322b9b',
+              800: '#28227e',
             }
           }
         }
@@ -27,6 +28,7 @@
     body {
       -webkit-tap-highlight-color: transparent;
       user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     .scrollbar-thin::-webkit-scrollbar {
       height: 4px;
@@ -59,46 +61,46 @@
 </head>
 <body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
 
-  <!-- Header Superior Integrado com Gradiente Verde -->
-  <header class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md sticky top-0 z-40">
-    <div class="max-w-md mx-auto px-3 py-2.5 space-y-2.5">
+  <!-- Header Superior com a nova cor #4038B7 -->
+  <header class="bg-gradient-to-r from-[#4038B7] to-[#2E288E] text-white shadow-md sticky top-0 z-40">
+    <div class="max-w-md mx-auto px-3.5 py-2.5 space-y-2.5">
       
-      <!-- Linha 1: Título e Botão de Tema -->
+      <!-- Linha 1: Título do App e Alternar Tema -->
       <div class="flex items-center justify-between">
         <div>
           <h1 class="text-base font-bold leading-tight tracking-tight">Mercado Compare</h1>
-          <p class="text-[10px] text-emerald-100/80 font-medium">Comparador de Preços</p>
+          <p class="text-[10px] text-brand-100/80 font-medium">Comparador Inteligente de Preços</p>
         </div>
 
-        <!-- Botão Alternar Tema Translucido -->
+        <!-- Botão Alternar Tema -->
         <button id="themeToggle" title="Tema" class="p-1.5 bg-white/10 hover:bg-white/20 active:bg-white/30 rounded-full transition-colors backdrop-blur-sm">
           <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
           <svg id="moonIcon" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.03 9.03 0 0012 21a9.03 9.03 0 008.354-5.646z"></path></svg>
         </button>
       </div>
 
-      <!-- Linha 2: Busca + Botões Integrados no Menu Verde -->
+      <!-- Linha 2: Busca + Botões Integrados -->
       <div class="flex items-center gap-1.5">
         <!-- Campo de Pesquisa -->
         <div class="relative flex-1 min-w-0">
-          <input type="text" id="searchInput" placeholder="Buscar..." class="w-full pl-7 pr-2 py-1 text-xs bg-white/15 dark:bg-black/20 text-white placeholder-emerald-100/70 border border-white/20 rounded-xl focus:outline-none focus:ring-1 focus:ring-white/50 backdrop-blur-sm">
-          <svg class="w-3.5 h-3.5 text-emerald-100/70 absolute left-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <input type="text" id="searchInput" placeholder="Buscar produto..." class="w-full pl-7 pr-2 py-1 text-xs bg-white/15 dark:bg-black/25 text-white placeholder-brand-100/70 border border-white/20 rounded-xl focus:outline-none focus:ring-1 focus:ring-white/50 backdrop-blur-sm transition-all">
+          <svg class="w-3.5 h-3.5 text-brand-100/70 absolute left-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
 
         <!-- Botão Novo Item -->
-        <button id="addItemBtn" title="Novo Item" class="bg-white hover:bg-emerald-50 text-emerald-700 p-1 px-2.5 rounded-xl text-xs font-bold flex items-center space-x-1 shadow-sm flex-shrink-0 transition-colors">
+        <button id="addItemBtn" title="Novo Item" class="bg-white hover:bg-brand-50 text-[#4038B7] p-1 px-2.5 rounded-xl text-xs font-bold flex items-center space-x-1 shadow-sm flex-shrink-0 transition-all active:scale-95">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
           <span>Item</span>
         </button>
 
         <!-- Botão Mercados -->
-        <button id="manageStoresBtn" title="Mercados" class="bg-white/15 hover:bg-white/25 text-white p-1 px-2.5 rounded-xl text-xs font-semibold flex items-center space-x-1 flex-shrink-0 transition-colors backdrop-blur-sm border border-white/20">
+        <button id="manageStoresBtn" title="Mercados" class="bg-white/15 hover:bg-white/25 text-white p-1 px-2.5 rounded-xl text-xs font-semibold flex items-center space-x-1 flex-shrink-0 transition-all backdrop-blur-sm border border-white/20 active:scale-95">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0v-4m0 4h4m-4-4l-4 4m4-4l4 4"></path></svg>
           <span>Mercados</span>
         </button>
 
         <!-- Botão Restaurar Dados -->
-        <button id="resetBtn" title="Restaurar dados" class="p-1 bg-white/15 hover:bg-white/25 text-white rounded-xl flex-shrink-0 transition-colors backdrop-blur-sm border border-white/20">
+        <button id="resetBtn" title="Restaurar dados" class="p-1 bg-white/15 hover:bg-white/25 text-white rounded-xl flex-shrink-0 transition-all backdrop-blur-sm border border-white/20 active:scale-95">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
         </button>
       </div>
@@ -109,21 +111,21 @@
   <!-- Main Container -->
   <main class="flex-1 w-full mx-auto space-y-2.5 pt-2.5 pb-4">
 
-    <!-- Store Summary Cards (Com 4+ Mercados) -->
+    <!-- Store Summary Cards (Exibindo Totais) -->
     <div class="max-w-md mx-auto px-2">
-      <div class="bg-white dark:bg-slate-800 px-2 py-2 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-x-auto scrollbar-thin">
+      <div class="bg-white dark:bg-slate-800 px-2 py-2 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm overflow-x-auto scrollbar-thin">
         <div id="storeSummaries" class="flex items-center divide-x divide-slate-200 dark:divide-slate-700 w-full min-w-max">
           <!-- Injetado dinamicamente via JS -->
         </div>
       </div>
     </div>
 
-    <!-- Table Container (Largura Total da Tela) -->
-    <div class="w-full bg-white dark:bg-slate-800 border-y border-slate-200 dark:border-slate-700 overflow-hidden">
-      <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-175px)] overflow-y-auto">
+    <!-- Table Container -->
+    <div class="w-full bg-white dark:bg-slate-800 border-y border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+      <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-180px)] overflow-y-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
-            <tr id="tableHeaderRow" class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 font-semibold text-slate-600 dark:text-slate-400">
+            <tr id="tableHeaderRow" class="bg-slate-50/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 font-semibold text-slate-500 dark:text-slate-400">
               <!-- Renderizado via JS -->
             </tr>
           </thead>
@@ -137,39 +139,39 @@
   </main>
 
   <!-- Modal Adicionar/Editar Item -->
-  <div id="itemModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3">
-    <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-sm w-full p-4 space-y-3 shadow-xl border border-slate-200 dark:border-slate-700">
+  <div id="itemModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-sm w-full p-4 space-y-3.5 shadow-2xl border border-slate-200 dark:border-slate-700">
       <h3 id="modalTitle" class="text-sm font-bold text-slate-900 dark:text-white">Adicionar Item</h3>
       
-      <form id="itemForm" class="space-y-2.5">
+      <form id="itemForm" class="space-y-3">
         <input type="hidden" id="itemId">
         
         <div>
-          <label class="block text-[11px] font-medium text-slate-500 mb-1">Nome do Item</label>
-          <input type="text" id="itemName" required class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500">
+          <label class="block text-[11px] font-semibold text-slate-500 mb-1">Nome do Item</label>
+          <input type="text" id="itemName" required class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4038B7]">
         </div>
 
         <div>
-          <label class="block text-[11px] font-medium text-slate-500 mb-1">Descrição / Obs (Ex: 500ml)</label>
-          <input type="text" id="itemNote" class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500">
+          <label class="block text-[11px] font-semibold text-slate-500 mb-1">Observação (ex: 500ml, por kg)</label>
+          <input type="text" id="itemNote" class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4038B7]">
         </div>
 
         <div id="priceInputs" class="space-y-2 pt-1">
-          <label class="block text-[11px] font-medium text-slate-500">Preços por Mercado (R$)</label>
+          <label class="block text-[11px] font-semibold text-slate-500">Preços por Mercado (R$)</label>
           <!-- Inputs de preços dinâmicos -->
         </div>
 
         <div class="flex justify-end space-x-2 pt-2">
-          <button type="button" id="closeItemModal" class="px-3.5 py-2 text-xs text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl">Cancelar</button>
-          <button type="submit" class="px-3.5 py-2 text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold">Salvar</button>
+          <button type="button" id="closeItemModal" class="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors">Cancelar</button>
+          <button type="submit" class="px-4 py-2 text-xs bg-[#4038B7] hover:bg-brand-700 text-white rounded-xl font-bold shadow-sm transition-colors">Salvar</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- Modal Gerenciar Mercados -->
-  <div id="storeModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3">
-    <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-sm w-full p-4 space-y-3 shadow-xl border border-slate-200 dark:border-slate-700">
+  <div id="storeModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-sm w-full p-4 space-y-3.5 shadow-2xl border border-slate-200 dark:border-slate-700">
       <h3 class="text-sm font-bold text-slate-900 dark:text-white">Gerenciar Mercados</h3>
       
       <div id="storeList" class="space-y-1.5 max-h-48 overflow-y-auto">
@@ -177,12 +179,12 @@
       </div>
 
       <div class="flex gap-2 pt-1">
-        <input type="text" id="newStoreName" placeholder="Novo Mercado..." class="flex-1 px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl">
-        <button id="addStoreBtn" class="px-3 py-2 text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold">Adicionar</button>
+        <input type="text" id="newStoreName" placeholder="Novo Mercado..." class="flex-1 px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4038B7]">
+        <button id="addStoreBtn" class="px-3.5 py-2 text-xs bg-[#4038B7] hover:bg-brand-700 text-white rounded-xl font-bold transition-colors">Adicionar</button>
       </div>
 
       <div class="flex justify-end pt-2">
-        <button id="closeStoreModal" class="px-3.5 py-2 text-xs text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl">Fechar</button>
+        <button id="closeStoreModal" class="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors">Fechar</button>
       </div>
     </div>
   </div>
@@ -215,8 +217,8 @@
 
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v15');
-        const savedItems = localStorage.getItem('mc_items_v15');
+        const savedStores = localStorage.getItem('mc_stores_v16');
+        const savedItems = localStorage.getItem('mc_items_v16');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -226,8 +228,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v15', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v15', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v16', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v16', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -244,20 +246,20 @@
     function renderHeaders() {
       const headerRow = document.getElementById('tableHeaderRow');
       let html = `
-        <th class="p-2 sticky-top-left bg-slate-50 dark:bg-slate-900 border-r border-b border-slate-200 dark:border-slate-700 w-[120px] min-w-[120px]">
+        <th class="p-2.5 sticky-top-left bg-slate-50 dark:bg-slate-900 border-r border-b border-slate-200 dark:border-slate-700 w-[120px] min-w-[120px] text-[11px] font-bold tracking-wider">
           ITEM
         </th>
       `;
       
       stores.forEach(store => {
         html += `
-          <th class="p-2 text-center uppercase tracking-wider w-[85px] min-w-[85px] sticky-header bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+          <th class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[85px] min-w-[85px] sticky-header bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
             ${store.name}
           </th>
         `;
       });
 
-      html += `<th class="p-2 text-center w-[36px] min-w-[36px] sticky-header bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700"></th>`;
+      html += `<th class="p-2.5 text-center w-[36px] min-w-[36px] sticky-header bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700"></th>`;
       headerRow.innerHTML = html;
     }
 
@@ -269,8 +271,8 @@
       if (filteredItems.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="${stores.length + 2}" class="p-6 text-center text-slate-400">
-              Nenhum item encontrado.
+            <td colspan="${stores.length + 2}" class="p-8 text-center text-slate-400 text-xs">
+              Nenhum produto encontrado.
             </td>
           </tr>
         `;
@@ -285,13 +287,13 @@
         const minPrice = validPrices.length > 0 ? Math.min(...validPrices) : null;
 
         return `
-          <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-700/30 ${item.checked ? 'opacity-50 line-through bg-slate-50/50 dark:bg-slate-800/50' : ''}">
-            <td class="p-2 sticky-col bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 w-[120px] min-w-[120px]">
-              <div class="flex items-center space-x-1.5">
-                <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-3.5 h-3.5 flex-shrink-0">
+          <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-700/30 transition-colors ${item.checked ? 'opacity-50 line-through bg-slate-50/50 dark:bg-slate-800/50' : ''}">
+            <td class="p-2.5 sticky-col bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 w-[120px] min-w-[120px]">
+              <div class="flex items-center space-x-2">
+                <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded border-slate-300 text-[#4038B7] focus:ring-[#4038B7] w-3.5 h-3.5 flex-shrink-0">
                 <div class="truncate">
-                  <div class="font-semibold text-slate-900 dark:text-slate-100 truncate text-xs">${item.name}</div>
-                  ${item.note ? `<div class="text-[10px] text-slate-400 dark:text-slate-500 truncate">${item.note}</div>` : ''}
+                  <div class="font-semibold text-slate-900 dark:text-slate-100 truncate text-xs leading-snug">${item.name}</div>
+                  ${item.note ? `<div class="text-[10px] text-slate-400 dark:text-slate-500 truncate mt-0.5">${item.note}</div>` : ''}
                 </div>
               </div>
             </td>
@@ -300,8 +302,8 @@
               const price = item.prices[store.id];
               const isCheapest = price !== null && price === minPrice && validPrices.length > 1;
               return `
-                <td class="p-2 text-center whitespace-nowrap w-[85px] min-w-[85px]">
-                  <span class="inline-block px-1.5 py-1 rounded-lg ${isCheapest ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/80 dark:text-emerald-300' : 'text-slate-600 dark:text-slate-300'} text-xs">
+                <td class="p-2.5 text-center whitespace-nowrap w-[85px] min-w-[85px]">
+                  <span class="text-xs font-bold leading-tight ${isCheapest ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'}">
                     ${formatCurrency(price)}
                   </span>
                 </td>
@@ -309,7 +311,7 @@
             }).join('')}
 
             <td class="p-2 text-center w-[36px] min-w-[36px]">
-              <button onclick="openEditItemModal('${item.id}')" class="text-slate-400 hover:text-emerald-600 p-1">
+              <button onclick="openEditItemModal('${item.id}')" class="text-slate-400 hover:text-[#4038B7] dark:hover:text-brand-100 p-1 rounded-lg transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
               </button>
             </td>
@@ -318,7 +320,7 @@
       }).join('');
     }
 
-    // RENDERIZAR CARDS DE RESUMO (SOMANDO APENAS OS VALORES VERDES)
+    // CARDS DE RESUMO (SOMANDO APENAS OS VALORES VERDES / MENORES PREÇOS)
     function renderSummaries() {
       const container = document.getElementById('storeSummaries');
       
@@ -356,13 +358,13 @@
         return `
           <div class="flex-1 px-2 text-center min-w-[75px] max-w-[100px]">
             <div class="flex items-center justify-center space-x-1">
-              <span class="text-[10px] font-medium text-slate-500 dark:text-slate-400 truncate">${store.name}</span>
+              <span class="text-[10px] font-semibold text-slate-500 dark:text-slate-400 truncate">${store.name}</span>
               ${hasBest ? '<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>' : ''}
             </div>
             <div class="text-xs font-bold ${hasBest ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'} leading-tight mt-0.5 whitespace-nowrap">
               ${formatCurrency(greenTotal)}
             </div>
-            <div class="text-[9px] text-slate-400 mt-0.5">${greenCount} verde${greenCount !== 1 ? 's' : ''}</div>
+            <div class="text-[9px] text-slate-400 dark:text-slate-500 mt-0.5 font-medium">${greenCount} verde${greenCount !== 1 ? 's' : ''}</div>
           </div>
         `;
       }).join('');
@@ -391,7 +393,7 @@
       priceInputsContainer.innerHTML = stores.map(store => `
         <div class="flex items-center justify-between gap-2">
           <span class="text-xs text-slate-600 dark:text-slate-300 w-24 truncate font-medium">${store.name}</span>
-          <input type="number" step="0.01" data-store-id="${store.id}" value="${item && item.prices[store.id] !== undefined && item.prices[store.id] !== null ? item.prices[store.id] : ''}" placeholder="0,00" class="store-price-input flex-1 px-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl">
+          <input type="number" step="0.01" data-store-id="${store.id}" value="${item && item.prices[store.id] !== undefined && item.prices[store.id] !== null ? item.prices[store.id] : ''}" placeholder="0,00" class="store-price-input flex-1 px-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4038B7]">
         </div>
       `).join('');
 
@@ -445,9 +447,9 @@
     function openStoreModal() {
       const storeList = document.getElementById('storeList');
       storeList.innerHTML = stores.map(store => `
-        <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-900 p-2.5 rounded-xl">
+        <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-900 p-2.5 rounded-2xl border border-slate-100 dark:border-slate-700/50">
           <span class="text-xs font-semibold text-slate-700 dark:text-slate-200">${store.name}</span>
-          <button onclick="removeStore('${store.id}')" class="text-rose-500 hover:text-rose-700 p-1">
+          <button onclick="removeStore('${store.id}')" class="text-rose-500 hover:text-rose-700 p-1 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
           </button>
         </div>
