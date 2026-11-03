@@ -59,17 +59,11 @@
 </head>
 <body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
 
-  <!-- Header / Menu Superior em 2 Linhas -->
+  <!-- Header / Menu Superior Reorganizado -->
   <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40 shadow-sm">
-    <div class="w-full px-3 py-2.5 space-y-2 max-w-md mx-auto">
+    <div class="w-full px-3 py-2 space-y-2 max-w-md mx-auto">
       
-      <!-- Linha 1: Campo de Pesquisa -->
-      <div class="relative w-full">
-        <input type="text" id="searchInput" placeholder="Buscar item..." class="w-full pl-8 pr-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-500">
-        <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-      </div>
-
-      <!-- Linha 2: Botões de Ação e Ícones de Controle -->
+      <!-- Linha 1: Botões de Ação na Esquerda + Tema e Restaurar com Cor Suave na Direita -->
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <!-- Botão Novo Item -->
@@ -85,16 +79,22 @@
           </button>
         </div>
 
-        <!-- Ícones na Direita (Tema e Reset) -->
-        <div class="flex items-center space-x-1">
-          <button id="themeToggle" title="Tema" class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+        <!-- Ícones na Direita com Fundo Suave -->
+        <div class="flex items-center space-x-1.5">
+          <button id="themeToggle" title="Tema" class="p-2 bg-slate-100 dark:bg-slate-700/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors">
             <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
             <svg id="moonIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.03 9.03 0 0012 21a9.03 9.03 0 008.354-5.646z"></path></svg>
           </button>
-          <button id="resetBtn" title="Restaurar dados" class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+          <button id="resetBtn" title="Restaurar dados" class="p-2 bg-slate-100 dark:bg-slate-700/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
           </button>
         </div>
+      </div>
+
+      <!-- Linha 2: Campo de Pesquisa Reduzido (Metade da Tela) -->
+      <div class="relative w-1/2">
+        <input type="text" id="searchInput" placeholder="Buscar..." class="w-full pl-8 pr-2 py-1.5 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-500">
+        <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
       </div>
 
     </div>
@@ -114,7 +114,7 @@
 
     <!-- Table Container (Largura Total da Tela) -->
     <div class="w-full bg-white dark:bg-slate-800 border-y border-slate-200 dark:border-slate-700 overflow-hidden">
-      <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-170px)] overflow-y-auto">
+      <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-175px)] overflow-y-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
             <tr id="tableHeaderRow" class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 font-semibold text-slate-600 dark:text-slate-400">
@@ -209,8 +209,8 @@
 
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v12');
-        const savedItems = localStorage.getItem('mc_items_v12');
+        const savedStores = localStorage.getItem('mc_stores_v13');
+        const savedItems = localStorage.getItem('mc_items_v13');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -220,8 +220,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v12', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v12', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v13', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v13', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
