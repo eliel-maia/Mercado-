@@ -110,9 +110,11 @@
         </div>
       </div>
 
-      <!-- Store Summary Cards -->
-      <div id="storeSummaries" class="grid grid-cols-2 gap-2">
-        <!-- Injetado dinamicamente via JS -->
+      <!-- Store Summary (Linha Única) -->
+      <div class="bg-white dark:bg-slate-800 px-3 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-x-auto scrollbar-thin">
+        <div id="storeSummaries" class="flex items-center justify-around divide-x divide-slate-200 dark:divide-slate-700 min-w-max">
+          <!-- Injetado dinamicamente via JS -->
+        </div>
       </div>
     </div>
 
@@ -336,11 +338,15 @@
       container.innerHTML = totals.map(store => {
         const isBestOption = store.total > 0 && store.total === minTotal && validTotals.length > 1;
         return `
-          <div class="bg-white dark:bg-slate-800 p-2.5 rounded-2xl border ${isBestOption ? 'border-emerald-500 dark:border-emerald-500 ring-1 ring-emerald-500' : 'border-slate-200 dark:border-slate-700'} shadow-sm relative overflow-hidden">
-            ${isBestOption ? '<span class="absolute top-0 right-0 bg-emerald-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-bl-lg uppercase">Mais Barato</span>' : ''}
-            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium truncate">${store.name}</div>
-            <div class="text-sm font-bold text-slate-900 dark:text-white mt-0.5">${formatCurrency(store.total)}</div>
-            <div class="text-[10px] text-slate-400 mt-0.5">${store.count} de ${items.length} cotados</div>
+          <div class="flex-1 px-3 text-center min-w-[100px] relative">
+            <div class="flex items-center justify-center space-x-1">
+              <span class="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate">${store.name}</span>
+              ${isBestOption ? '<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" title="Mais Barato"></span>' : ''}
+            </div>
+            <div class="text-xs font-bold ${isBestOption ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white'} leading-tight mt-0.5">
+              ${formatCurrency(store.total)}
+            </div>
+            <div class="text-[9px] text-slate-400 mt-0.5">${store.count}/${items.length} itens</div>
           </div>
         `;
       }).join('');
