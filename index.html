@@ -55,14 +55,9 @@
       left: 0;
       z-index: 30;
     }
-    /* Estilos do Bottom Sheet */
-    #bottomSheet {
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      touch-action: none;
-    }
   </style>
 </head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200 relative pb-24">
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200 relative pb-20">
 
   <!-- Header -->
   <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40 shadow-sm">
@@ -92,11 +87,18 @@
   </header>
 
   <!-- Main Container -->
-  <main class="flex-1 w-full mx-auto space-y-3 pt-2">
+  <main class="flex-1 w-full mx-auto space-y-3 pt-3">
+
+    <!-- Store Summary Cards -->
+    <div class="max-w-md mx-auto px-3">
+      <div id="storeSummaries" class="grid grid-cols-2 gap-2">
+        <!-- Injetado dinamicamente via JS -->
+      </div>
+    </div>
 
     <!-- Table Container (Largura Total da Tela) -->
     <div class="w-full bg-white dark:bg-slate-800 border-y border-slate-200 dark:border-slate-700 overflow-hidden">
-      <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-140px)] overflow-y-auto">
+      <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-180px)] overflow-y-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
             <tr id="tableHeaderRow" class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 font-semibold text-slate-600 dark:text-slate-400">
@@ -112,32 +114,10 @@
 
   </main>
 
-  <!-- BOTTOM SHEET (MENU INFERIOR DESLIZANTE COM CARDS) -->
-  <div id="sheetOverlay" class="fixed inset-0 bg-black/30 backdrop-blur-[1px] z-40 hidden transition-opacity"></div>
-  
-  <div id="bottomSheet" class="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-800 rounded-t-3xl shadow-2xl border-t border-slate-200 dark:border-slate-700 translate-y-[calc(100%-48px)]">
+  <!-- BOTÕES FLUTUANTES (FAB) estilo mapa -->
+  <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end space-y-3">
     
-    <!-- Drag Handle Area -->
-    <div id="dragHandle" class="w-full py-3 flex flex-col items-center justify-center cursor-grab active:cursor-grabbing select-none">
-      <div class="w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full mb-1"></div>
-      <span class="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1">
-        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
-        Resumo de Valores
-      </span>
-    </div>
-
-    <!-- Conteúdo do Bottom Sheet (Cards de Totais) -->
-    <div class="px-4 pb-6 pt-1 max-w-md mx-auto">
-      <div id="storeSummaries" class="grid grid-cols-2 gap-2">
-        <!-- Injetado dinamicamente via JS -->
-      </div>
-    </div>
-  </div>
-
-  <!-- BOTÕES FLUTUANTES (FAB) -->
-  <div class="fixed bottom-14 right-5 z-30 flex flex-col items-end space-y-3">
-    
-    <!-- Sub-botões -->
+    <!-- Sub-botões que abrem ao clicar no botão principal -->
     <div id="fabMenu" class="hidden flex flex-col items-end space-y-3 transition-all duration-200">
       
       <!-- Botão Buscar -->
@@ -267,8 +247,8 @@
 
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v9');
-        const savedItems = localStorage.getItem('mc_items_v9');
+        const savedStores = localStorage.getItem('mc_stores_v8');
+        const savedItems = localStorage.getItem('mc_items_v8');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -278,8 +258,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v9', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v9', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v8', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v8', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -410,50 +390,7 @@
       }
     }
 
-    // LÓGICA DO BOTTOM SHEET (ARRASTAR & CLICAR)
-    const bottomSheet = document.getElementById('bottomSheet');
-    const dragHandle = document.getElementById('dragHandle');
-    const sheetOverlay = document.getElementById('sheetOverlay');
-    let isSheetOpen = false;
-    let startY = 0;
-    let currentY = 0;
-
-    function openSheet() {
-      isSheetOpen = true;
-      bottomSheet.style.transform = 'translateY(0%)';
-      sheetOverlay.classList.remove('hidden');
-    }
-
-    function closeSheet() {
-      isSheetOpen = false;
-      bottomSheet.style.transform = 'translateY(calc(100% - 48px))';
-      sheetOverlay.classList.add('hidden');
-    }
-
-    function toggleSheet() {
-      if (isSheetOpen) closeSheet();
-      else openSheet();
-    }
-
-    dragHandle.addEventListener('click', toggleSheet);
-    sheetOverlay.addEventListener('click', closeSheet);
-
-    // GESTOS DE TOUCH (SWIPE UP / DOWN)
-    dragHandle.addEventListener('touchstart', (e) => {
-      startY = e.touches[0].clientY;
-    });
-
-    dragHandle.addEventListener('touchmove', (e) => {
-      currentY = e.touches[0].clientY;
-    });
-
-    dragHandle.addEventListener('touchend', () => {
-      const diffY = startY - currentY;
-      if (diffY > 30) openSheet(); // Deslizou para cima
-      else if (diffY < -30) closeSheet(); // Deslizou para baixo
-    });
-
-    // FAB (MENUS FLUTUANTES)
+    // CONTROLE DOS BOTÕES FLUTUANTES (FAB)
     const fabToggleBtn = document.getElementById('fabToggleBtn');
     const fabMenu = document.getElementById('fabMenu');
     const fabIconMenu = document.getElementById('fabIconMenu');
@@ -474,7 +411,7 @@
 
     fabToggleBtn.onclick = toggleFabMenu;
 
-    // AÇÕES DOS SUB-BOTÕES
+    // AÇÕES DOS SUB-BOTÕES FLUTUANTES
     const searchModal = document.getElementById('searchModal');
     document.getElementById('fabSearchBtn').onclick = () => {
       toggleFabMenu();
