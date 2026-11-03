@@ -59,49 +59,54 @@
 </head>
 <body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
 
-  <!-- Header / Menu Superior Reorganizado -->
-  <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40 shadow-sm">
-    <div class="w-full px-3 py-2 space-y-2 max-w-md mx-auto">
-      
-      <!-- Linha 1: Botões de Ação na Esquerda + Tema e Restaurar com Cor Suave na Direita -->
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <!-- Botão Novo Item -->
-          <button id="addItemBtn" class="bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white py-1.5 px-3 rounded-xl text-xs font-semibold flex items-center space-x-1 shadow-sm">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-            <span>Novo Item</span>
-          </button>
-
-          <!-- Botão Mercados -->
-          <button id="manageStoresBtn" class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 py-1.5 px-3 rounded-xl text-xs font-semibold flex items-center space-x-1">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0v-4m0 4h4m-4-4l-4 4m4-4l4 4"></path></svg>
-            <span>Mercados</span>
-          </button>
-        </div>
-
-        <!-- Ícones na Direita com Fundo Suave -->
-        <div class="flex items-center space-x-1.5">
-          <button id="themeToggle" title="Tema" class="p-2 bg-slate-100 dark:bg-slate-700/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors">
-            <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            <svg id="moonIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.03 9.03 0 0012 21a9.03 9.03 0 008.354-5.646z"></path></svg>
-          </button>
-          <button id="resetBtn" title="Restaurar dados" class="p-2 bg-slate-100 dark:bg-slate-700/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-          </button>
-        </div>
+  <!-- Header Superior Estilo Gradiente Verde -->
+  <header class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md sticky top-0 z-40">
+    <div class="max-w-md mx-auto px-4 py-3.5 flex items-center justify-between">
+      <div>
+        <h1 class="text-lg font-bold leading-tight tracking-tight">Mercado Compare</h1>
+        <p class="text-[11px] text-emerald-100/80 font-medium">Comparador de Preços</p>
       </div>
 
-      <!-- Linha 2: Campo de Pesquisa Reduzido (Metade da Tela) -->
-      <div class="relative w-1/2">
-        <input type="text" id="searchInput" placeholder="Buscar..." class="w-full pl-8 pr-2 py-1.5 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-500">
-        <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-      </div>
-
+      <!-- Botão Alternar Tema Translucido -->
+      <button id="themeToggle" title="Tema" class="p-2 bg-white/10 hover:bg-white/20 active:bg-white/30 rounded-full transition-colors backdrop-blur-sm">
+        <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        <svg id="moonIcon" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.03 9.03 0 0012 21a9.03 9.03 0 008.354-5.646z"></path></svg>
+      </button>
     </div>
   </header>
 
   <!-- Main Container -->
-  <main class="flex-1 w-full mx-auto space-y-2 pt-2 pb-4">
+  <main class="flex-1 w-full mx-auto space-y-2.5 pt-2.5 pb-4">
+
+    <!-- Linha Unificada: Pesquisa + Botões de Ação -->
+    <div class="max-w-md mx-auto px-2">
+      <div class="bg-white dark:bg-slate-800 p-2 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 flex items-center gap-1.5">
+        
+        <!-- Campo de Pesquisa -->
+        <div class="relative flex-1 min-w-0">
+          <input type="text" id="searchInput" placeholder="Buscar..." class="w-full pl-7 pr-2 py-1.5 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500">
+          <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+
+        <!-- Botão Novo Item -->
+        <button id="addItemBtn" title="Novo Item" class="bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white p-1.5 px-2.5 rounded-xl text-xs font-semibold flex items-center space-x-1 shadow-sm flex-shrink-0">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          <span>Item</span>
+        </button>
+
+        <!-- Botão Mercados -->
+        <button id="manageStoresBtn" title="Mercados" class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 p-1.5 px-2.5 rounded-xl text-xs font-semibold flex items-center space-x-1 flex-shrink-0">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0v-4m0 4h4m-4-4l-4 4m4-4l4 4"></path></svg>
+          <span>Mercados</span>
+        </button>
+
+        <!-- Botão Restaurar Dados -->
+        <button id="resetBtn" title="Restaurar dados" class="p-1.5 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl flex-shrink-0 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+        </button>
+
+      </div>
+    </div>
 
     <!-- Store Summary Cards (Com 4+ Mercados) -->
     <div class="max-w-md mx-auto px-2">
@@ -114,7 +119,7 @@
 
     <!-- Table Container (Largura Total da Tela) -->
     <div class="w-full bg-white dark:bg-slate-800 border-y border-slate-200 dark:border-slate-700 overflow-hidden">
-      <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-175px)] overflow-y-auto">
+      <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-210px)] overflow-y-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
             <tr id="tableHeaderRow" class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 font-semibold text-slate-600 dark:text-slate-400">
@@ -140,12 +145,12 @@
         
         <div>
           <label class="block text-[11px] font-medium text-slate-500 mb-1">Nome do Item</label>
-          <input type="text" id="itemName" required class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-500">
+          <input type="text" id="itemName" required class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500">
         </div>
 
         <div>
           <label class="block text-[11px] font-medium text-slate-500 mb-1">Descrição / Obs (Ex: 500ml)</label>
-          <input type="text" id="itemNote" class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-500">
+          <input type="text" id="itemNote" class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500">
         </div>
 
         <div id="priceInputs" class="space-y-2 pt-1">
@@ -155,7 +160,7 @@
 
         <div class="flex justify-end space-x-2 pt-2">
           <button type="button" id="closeItemModal" class="px-3.5 py-2 text-xs text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl">Cancelar</button>
-          <button type="submit" class="px-3.5 py-2 text-xs bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-semibold">Salvar</button>
+          <button type="submit" class="px-3.5 py-2 text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold">Salvar</button>
         </div>
       </form>
     </div>
@@ -172,7 +177,7 @@
 
       <div class="flex gap-2 pt-1">
         <input type="text" id="newStoreName" placeholder="Novo Mercado..." class="flex-1 px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl">
-        <button id="addStoreBtn" class="px-3 py-2 text-xs bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-semibold">Adicionar</button>
+        <button id="addStoreBtn" class="px-3 py-2 text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold">Adicionar</button>
       </div>
 
       <div class="flex justify-end pt-2">
@@ -209,8 +214,8 @@
 
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v13');
-        const savedItems = localStorage.getItem('mc_items_v13');
+        const savedStores = localStorage.getItem('mc_stores_v14');
+        const savedItems = localStorage.getItem('mc_items_v14');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -220,8 +225,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v13', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v13', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v14', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v14', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -282,7 +287,7 @@
           <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-700/30 ${item.checked ? 'opacity-50 line-through bg-slate-50/50 dark:bg-slate-800/50' : ''}">
             <td class="p-2 sticky-col bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 w-[120px] min-w-[120px]">
               <div class="flex items-center space-x-1.5">
-                <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded border-slate-300 text-brand-600 focus:ring-brand-500 w-3.5 h-3.5 flex-shrink-0">
+                <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-3.5 h-3.5 flex-shrink-0">
                 <div class="truncate">
                   <div class="font-semibold text-slate-900 dark:text-slate-100 truncate text-xs">${item.name}</div>
                   ${item.note ? `<div class="text-[10px] text-slate-400 dark:text-slate-500 truncate">${item.note}</div>` : ''}
@@ -303,7 +308,7 @@
             }).join('')}
 
             <td class="p-2 text-center w-[36px] min-w-[36px]">
-              <button onclick="openEditItemModal('${item.id}')" class="text-slate-400 hover:text-brand-600 p-1">
+              <button onclick="openEditItemModal('${item.id}')" class="text-slate-400 hover:text-emerald-600 p-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
               </button>
             </td>
