@@ -5,33 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Mercado Compare</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            darkbg: '#121212',
-            darkcard: '#1e1e1e',
-            darkborder: '#2c2c2e',
-            brand: {
-              500: '#5856d6',
-              600: '#4f46e5',
-              700: '#4338ca',
-            }
-          }
-        }
-      }
-    }
-  </script>
   <style>
+    /* Forçando a paleta exata do app de finanças em todo o sistema */
     html, body {
       background-color: #121212 !important;
-      color: #e5e7eb !important;
+      color: #f4f4f5 !important;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
+    
+    /* Cartões e elementos principais */
+    .app-card {
+      background-color: #1e1e1e !important;
+      border-color: #2c2c2e !important;
+    }
+
+    /* Inputs e caixas de texto */
+    input, select {
+      background-color: #121212 !important;
+      color: #ffffff !important;
+      border-color: #2c2c2e !important;
+    }
+
+    /* Tabela e Cabeçalhos */
+    .sticky-col {
+      position: sticky;
+      left: 0;
+      z-index: 10;
+      background-color: #1e1e1e !important;
+    }
+    .sticky-header, .sticky-top-left {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background-color: #18181b !important;
+    }
+    .sticky-top-left {
+      z-index: 30;
+    }
+
     .scrollbar-thin::-webkit-scrollbar {
       height: 4px;
       width: 4px;
@@ -40,40 +53,21 @@
       background: #3f3f46;
       border-radius: 4px;
     }
-    .sticky-col {
-      position: sticky;
-      left: 0;
-      z-index: 10;
-      background-color: #1e1e1e !important;
-    }
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background-color: #18181b !important;
-    }
-    .sticky-top-left {
-      position: sticky;
-      top: 0;
-      left: 0;
-      z-index: 30;
-      background-color: #18181b !important;
-    }
   </style>
 </head>
-<body class="bg-[#121212] text-zinc-100 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
 
   <!-- Main Container -->
   <main class="flex-1 w-full space-y-3 pt-2 pb-6">
 
-    <!-- Card Superior Flutuante (Estilo App Finanças) -->
+    <!-- Card Superior Flutuante -->
     <div class="px-2 sm:px-3">
-      <div class="max-w-md mx-auto bg-[#1e1e1e] p-4 rounded-3xl shadow-xl border border-[#2c2c2e] space-y-3.5 relative overflow-hidden">
+      <div class="max-w-md mx-auto app-card p-4 rounded-3xl shadow-xl border space-y-3.5 relative overflow-hidden">
         
-        <!-- Linha 1: Marca + Ações Secundárias -->
+        <!-- Linha 1: Marca + Restauração -->
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-2.5">
-            <div class="bg-[#2c2c2e] text-indigo-400 p-2 rounded-2xl shadow-inner">
+            <div class="bg-[#2c2c2e] text-[#5856d6] p-2 rounded-2xl shadow-inner">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
               </svg>
@@ -84,7 +78,6 @@
             </div>
           </div>
 
-          <!-- Botão Restaurar Dados -->
           <div class="flex items-center space-x-1.5">
             <button id="resetBtn" title="Restaurar dados" class="p-2 bg-[#2c2c2e] hover:bg-[#3a3a3c] text-zinc-300 rounded-xl transition-all shadow-sm">
               <svg class="w-4 h-4 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
@@ -92,13 +85,13 @@
           </div>
         </div>
 
-        <!-- Linha 2: Pesquisa -->
+        <!-- Linha 2: Barra de Pesquisa -->
         <div class="relative w-full">
-          <input type="text" id="searchInput" placeholder="Pesquisar..." class="w-full pl-9 pr-3 py-2 text-xs bg-[#121212] text-white placeholder-zinc-500 rounded-2xl border border-[#2c2c2e] focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner font-medium">
+          <input type="text" id="searchInput" placeholder="Pesquisar..." class="w-full pl-9 pr-3 py-2 text-xs text-white placeholder-zinc-500 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-medium">
           <svg class="w-4 h-4 text-zinc-500 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
 
-        <!-- Linha 3: Botões Principais (Azul / Violeta Finanças) -->
+        <!-- Linha 3: Botão Novo Item em Azul/Violeta (#5856d6) -->
         <div class="flex items-center gap-2 pt-0.5">
           <button id="addItemBtn" class="flex-1 bg-[#5856d6] hover:bg-[#4f46e5] active:bg-[#4338ca] text-white py-2 px-3 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-md transition-all active:scale-95">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
@@ -116,15 +109,15 @@
 
     <!-- Store Summary Cards -->
     <div class="px-2 sm:px-3">
-      <div class="max-w-md mx-auto bg-[#1e1e1e] px-2 py-2.5 rounded-2xl border border-[#2c2c2e] shadow-lg overflow-x-auto scrollbar-thin">
+      <div class="max-w-md mx-auto app-card px-2 py-2.5 rounded-2xl border shadow-lg overflow-x-auto scrollbar-thin">
         <div id="storeSummaries" class="flex items-center divide-x divide-[#2c2c2e] w-full min-w-max">
           <!-- Injetado dinamicamente via JS -->
         </div>
       </div>
     </div>
 
-    <!-- Table Container (Largura 100% da Tela) -->
-    <div class="w-full bg-[#1e1e1e] border-y border-[#2c2c2e] overflow-hidden shadow-lg">
+    <!-- Table Container (100% da Largura da Tela) -->
+    <div class="w-full app-card border-y border-[#2c2c2e] overflow-hidden shadow-lg">
       <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-320px)] overflow-y-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
@@ -143,7 +136,7 @@
 
   <!-- Modal Adicionar/Editar Item -->
   <div id="itemModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3">
-    <div class="bg-[#1e1e1e] rounded-3xl max-w-md w-full p-4 space-y-3 shadow-2xl border border-[#2c2c2e] max-h-[90vh] overflow-y-auto scrollbar-thin text-zinc-100">
+    <div class="app-card rounded-3xl max-w-md w-full p-4 space-y-3 shadow-2xl border border-[#2c2c2e] max-h-[90vh] overflow-y-auto scrollbar-thin text-zinc-100">
       <h3 id="modalTitle" class="text-sm font-bold text-white">Adicionar Item</h3>
       
       <form id="itemForm" class="space-y-3">
@@ -152,15 +145,15 @@
         <div class="grid grid-cols-4 gap-2">
           <div class="col-span-2">
             <label class="block text-[11px] font-semibold text-zinc-400 mb-1">Nome do Item</label>
-            <input type="text" id="itemName" required class="w-full px-3 py-2 text-xs bg-[#121212] text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <input type="text" id="itemName" required class="w-full px-3 py-2 text-xs text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
           </div>
           <div>
             <label class="block text-[11px] font-semibold text-zinc-400 mb-1">Qtd</label>
-            <input type="number" id="itemQuantity" min="1" value="1" required class="w-full px-2.5 py-2 text-xs bg-[#121212] text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-bold text-center">
+            <input type="number" id="itemQuantity" min="1" value="1" required class="w-full px-2.5 py-2 text-xs text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-bold text-center">
           </div>
           <div>
             <label class="block text-[11px] font-semibold text-zinc-400 mb-1">Medida</label>
-            <select id="itemUnit" class="w-full px-2 py-2 text-xs bg-[#121212] text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+            <select id="itemUnit" class="w-full px-2 py-2 text-xs text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-medium">
               <option value="UN">UN</option>
               <option value="Kg">Kg</option>
               <option value="L">L</option>
@@ -174,7 +167,7 @@
 
         <div id="priceInputs" class="space-y-2 pt-1">
           <label class="block text-[11px] font-semibold text-zinc-400">Preço Unitário e Observações por Mercado</label>
-          <!-- Inputs de preços + notas dinâmicos -->
+          <!-- Inputs de preços dinâmicos -->
         </div>
 
         <div class="flex justify-end space-x-2 pt-2">
@@ -187,7 +180,7 @@
 
   <!-- Modal Gerenciar Mercados -->
   <div id="storeModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3">
-    <div class="bg-[#1e1e1e] rounded-3xl max-w-sm w-full p-4 space-y-3.5 shadow-2xl border border-[#2c2c2e] text-zinc-100">
+    <div class="app-card rounded-3xl max-w-sm w-full p-4 space-y-3.5 shadow-2xl border border-[#2c2c2e] text-zinc-100">
       <h3 class="text-sm font-bold text-white">Gerenciar Mercados</h3>
       
       <div id="storeList" class="space-y-1.5 max-h-48 overflow-y-auto">
@@ -195,7 +188,7 @@
       </div>
 
       <div class="flex gap-2 pt-1">
-        <input type="text" id="newStoreName" placeholder="Novo Mercado..." class="flex-1 px-3 py-2 text-xs bg-[#121212] text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <input type="text" id="newStoreName" placeholder="Novo Mercado..." class="flex-1 px-3 py-2 text-xs text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
         <button id="addStoreBtn" class="px-3.5 py-2 text-xs bg-[#5856d6] hover:bg-[#4f46e5] text-white rounded-xl font-bold transition-colors">Adicionar</button>
       </div>
 
@@ -230,10 +223,11 @@
     let stores = [];
     let items = [];
 
+    // Chaves atualizadas para a Versão 28
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v26');
-        const savedItems = localStorage.getItem('mc_items_v26');
+        const savedStores = localStorage.getItem('mc_stores_v28');
+        const savedItems = localStorage.getItem('mc_items_v28');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -303,13 +297,13 @@
         
         const minPrice = validPrices.length > 0 ? Math.min(...validPrices) : null;
         
-        const qtyBadge = `<span class="inline-block px-1 bg-indigo-950 text-indigo-300 border border-indigo-900/50 rounded text-[9px] font-bold mt-0.5">Qtd: ${qty} • ${item.unit || 'UN'}</span>`;
+        const qtyBadge = `<span class="inline-block px-1 bg-[#2c2c2e] text-zinc-300 border border-[#3a3a3c] rounded text-[9px] font-bold mt-0.5">Qtd: ${qty} • ${item.unit || 'UN'}</span>`;
 
         return `
           <tr class="hover:bg-[#252528] transition-colors ${item.checked ? 'opacity-40 line-through bg-[#18181b]' : ''}">
             <td class="p-2.5 sticky-col border-r border-[#2c2c2e] w-[145px] min-w-[145px]">
               <div class="flex items-center space-x-1.5">
-                <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded border-zinc-700 bg-zinc-800 text-indigo-500 focus:ring-indigo-500 w-3.5 h-3.5 flex-shrink-0">
+                <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded border-zinc-700 bg-zinc-800 text-[#5856d6] focus:ring-[#5856d6] w-3.5 h-3.5 flex-shrink-0">
                 <div class="truncate">
                   <div class="font-semibold text-zinc-100 truncate text-xs leading-snug">${item.name}</div>
                   <div>${qtyBadge}</div>
@@ -325,7 +319,7 @@
               return `
                 <td class="p-2.5 text-center whitespace-nowrap w-[95px] min-w-[95px]">
                   <div class="flex flex-col items-center justify-center">
-                    <span class="inline-block px-2 py-0.5 rounded-lg text-xs font-bold leading-tight ${isCheapest ? 'bg-emerald-950 text-emerald-300 border border-emerald-800/60 shadow-sm' : 'text-zinc-400'}">
+                    <span class="inline-block px-2 py-0.5 rounded-lg text-xs font-bold leading-tight ${isCheapest ? 'bg-[#153422] text-[#4ade80] border border-[#166534] shadow-sm' : 'text-zinc-400'}">
                       ${formatCurrency(price)}
                     </span>
                     ${storeNote ? `<span class="text-[9px] text-zinc-500 font-medium truncate max-w-[85px] mt-0.5">${storeNote}</span>` : ''}
@@ -335,7 +329,7 @@
             }).join('')}
 
             <td class="p-2 text-center w-[36px] min-w-[36px]">
-              <button onclick="openEditItemModal('${item.id}')" class="text-zinc-500 hover:text-indigo-400 p-1 rounded-lg transition-colors">
+              <button onclick="openEditItemModal('${item.id}')" class="text-zinc-500 hover:text-[#5856d6] p-1 rounded-lg transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
               </button>
             </td>
@@ -383,9 +377,9 @@
           <div class="flex-1 px-2 text-center min-w-[75px] max-w-[100px]">
             <div class="flex items-center justify-center space-x-1">
               <span class="text-[10px] font-semibold text-zinc-400 truncate">${store.name}</span>
-              ${hasBest ? '<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>' : ''}
+              ${hasBest ? '<span class="inline-block w-1.5 h-1.5 rounded-full bg-[#4ade80]"></span>' : ''}
             </div>
-            <div class="text-xs font-bold ${hasBest ? 'text-emerald-400' : 'text-zinc-500'} leading-tight mt-0.5 whitespace-nowrap">
+            <div class="text-xs font-bold ${hasBest ? 'text-[#4ade80]' : 'text-zinc-500'} leading-tight mt-0.5 whitespace-nowrap">
               ${formatCurrency(greenTotal)}
             </div>
             <div class="text-[9px] text-zinc-500 mt-0.5 font-medium">${greenCount} verde${greenCount !== 1 ? 's' : ''}</div>
@@ -419,8 +413,8 @@
         <div class="space-y-1 bg-[#121212] p-2 rounded-xl border border-[#2c2c2e]">
           <span class="text-xs text-zinc-300 font-bold block">${store.name}</span>
           <div class="flex gap-2">
-            <input type="number" step="0.01" data-store-id="${store.id}" value="${item && item.prices[store.id] !== undefined && item.prices[store.id] !== null ? item.prices[store.id] : ''}" placeholder="Preço (R$)" class="store-price-input w-28 px-2.5 py-1.5 text-xs bg-[#1e1e1e] text-white border border-[#2c2c2e] rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            <input type="text" data-store-note-id="${store.id}" value="${item && item.storeNotes && item.storeNotes[store.id] ? item.storeNotes[store.id] : ''}" placeholder="Obs/Marca..." class="store-note-input flex-1 px-2.5 py-1.5 text-xs bg-[#1e1e1e] text-white border border-[#2c2c2e] rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <input type="number" step="0.01" data-store-id="${store.id}" value="${item && item.prices[store.id] !== undefined && item.prices[store.id] !== null ? item.prices[store.id] : ''}" placeholder="Preço (R$)" class="store-price-input w-28 px-2.5 py-1.5 text-xs text-white border border-[#2c2c2e] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
+            <input type="text" data-store-note-id="${store.id}" value="${item && item.storeNotes && item.storeNotes[store.id] ? item.storeNotes[store.id] : ''}" placeholder="Obs/Marca..." class="store-note-input flex-1 px-2.5 py-1.5 text-xs text-white border border-[#2c2c2e] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
           </div>
         </div>
       `).join('');
