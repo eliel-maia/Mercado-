@@ -10,7 +10,7 @@
     :root {
       --bg-page: #F1F1F3;
       --bg-card: #FCFCFE;
-      --border-color: #F6F6F8;
+      --border-color: #E2E8F0; /* Bordas um pouco mais escuras no Tema Claro */
       --bg-input: #F9FAFC;
       --text-main: #1c1c1e;
       --text-sub: #6e6e73;
@@ -167,15 +167,15 @@
         <div class="grid grid-cols-4 gap-2">
           <div class="col-span-2">
             <label class="block text-[11px] font-semibold opacity-60 mb-1">Nome do Item</label>
-            <input type="text" id="itemName" required class="w-full px-3 py-2 text-xs border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
+            <input type="text" id="itemName" required class="w-full px-3 py-2 text-xs border border-[var(--border-color)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
           </div>
           <div>
             <label class="block text-[11px] font-semibold opacity-60 mb-1">Qtd</label>
-            <input type="number" id="itemQuantity" min="1" value="1" required class="w-full px-2.5 py-2 text-xs border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-bold text-center">
+            <input type="number" id="itemQuantity" min="1" value="1" required class="w-full px-2.5 py-2 text-xs border border-[var(--border-color)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-bold text-center">
           </div>
           <div>
             <label class="block text-[11px] font-semibold opacity-60 mb-1">Medida</label>
-            <select id="itemUnit" class="w-full px-2 py-2 text-xs border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-medium">
+            <select id="itemUnit" class="w-full px-2 py-2 text-xs border border-[var(--border-color)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-medium">
               <option value="UN">UN</option>
               <option value="Kg">Kg</option>
               <option value="L">L</option>
@@ -210,7 +210,7 @@
       </div>
 
       <div class="flex gap-2 pt-1">
-        <input type="text" id="newStoreName" placeholder="Novo Mercado..." class="flex-1 px-3 py-2 text-xs border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
+        <input type="text" id="newStoreName" placeholder="Novo Mercado..." class="flex-1 px-3 py-2 text-xs border border-[var(--border-color)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
         <button id="addStoreBtn" class="px-3.5 py-2 text-xs bg-[#5856d6] hover:bg-[#4f46e5] text-white rounded-xl font-bold transition-colors">Adicionar</button>
       </div>
 
@@ -259,8 +259,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v28', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v28', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v29', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v29', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -435,8 +435,8 @@
         <div class="space-y-1 bg-[var(--bg-input)] p-2 rounded-xl border border-[var(--border-color)]">
           <span class="text-xs font-bold block">${store.name}</span>
           <div class="flex gap-2">
-            <input type="number" step="0.01" data-store-id="${store.id}" value="${item && item.prices[store.id] !== undefined && item.prices[store.id] !== null ? item.prices[store.id] : ''}" placeholder="Preço (R$)" class="store-price-input w-28 px-2.5 py-1.5 text-xs border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
-            <input type="text" data-store-note-id="${store.id}" value="${item && item.storeNotes && item.storeNotes[store.id] ? item.storeNotes[store.id] : ''}" placeholder="Obs/Marca..." class="store-note-input flex-1 px-2.5 py-1.5 text-xs border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
+            <input type="number" step="0.01" data-store-id="${store.id}" value="${item && item.prices[store.id] !== undefined && item.prices[store.id] !== null ? item.prices[store.id] : ''}" placeholder="Preço (R$)" class="store-price-input w-28 px-2.5 py-1.5 text-xs border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
+            <input type="text" data-store-note-id="${store.id}" value="${item && item.storeNotes && item.storeNotes[store.id] ? item.storeNotes[store.id] : ''}" placeholder="Obs/Marca..." class="store-note-input flex-1 px-2.5 py-1.5 text-xs border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
           </div>
         </div>
       `).join('');
