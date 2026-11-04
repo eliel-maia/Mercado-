@@ -52,14 +52,19 @@
       z-index: 10;
       background-color: var(--bg-card) !important;
     }
-    .sticky-header, .sticky-top-left {
+    .sticky-header {
       position: sticky;
       top: 0;
       z-index: 20;
       background-color: var(--sticky-bg) !important;
     }
+    /* Célula do canto superior esquerdo (ITEM) fixa tanto no topo quanto à esquerda */
     .sticky-top-left {
-      z-index: 30;
+      position: sticky;
+      top: 0;
+      left: 0;
+      z-index: 40;
+      background-color: var(--sticky-bg) !important;
     }
 
     .scrollbar-thin::-webkit-scrollbar {
@@ -245,11 +250,11 @@
     let items = [];
     let activeStoreFilter = null; // Guarda o ID do mercado filtrado atualmente
 
-    // Chaves atualizadas para a Versão 35
+    // Chaves atualizadas para a Versão 36
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v35');
-        const savedItems = localStorage.getItem('mc_items_v35');
+        const savedStores = localStorage.getItem('mc_stores_v36');
+        const savedItems = localStorage.getItem('mc_items_v36');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -259,8 +264,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v35', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v35', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v36', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v36', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
