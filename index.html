@@ -52,13 +52,14 @@
       z-index: 10;
       background-color: var(--bg-card) !important;
     }
+    
+    /* Cabeçalhos fixos com fundo opaco para não vazar o texto por trás */
     .sticky-header {
       position: sticky;
       top: 0;
       z-index: 20;
       background-color: var(--sticky-bg) !important;
     }
-    /* Célula do canto superior esquerdo (ITEM) fixa tanto no topo quanto à esquerda */
     .sticky-top-left {
       position: sticky;
       top: 0;
@@ -250,11 +251,11 @@
     let items = [];
     let activeStoreFilter = null; // Guarda o ID do mercado filtrado atualmente
 
-    // Chaves atualizadas para a Versão 36
+    // Chaves atualizadas para a Versão 37
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v36');
-        const savedItems = localStorage.getItem('mc_items_v36');
+        const savedStores = localStorage.getItem('mc_stores_v37');
+        const savedItems = localStorage.getItem('mc_items_v37');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -264,8 +265,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v36', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v36', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v37', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v37', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
