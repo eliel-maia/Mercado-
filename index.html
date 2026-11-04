@@ -6,11 +6,11 @@
   <title>Mercado Compare</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Variaveis de cores para Tema Claro e Escuro */
+    /* Variáveis de cores para Tema Claro e Escuro */
     :root {
       --bg-page: #F1F1F3;
       --bg-card: #FCFCFE;
-      --border-color: #E2E8F0; /* Bordas um pouco mais escuras no Tema Claro */
+      --border-color: #E2E8F0;
       --bg-input: #F9FAFC;
       --text-main: #1c1c1e;
       --text-sub: #6e6e73;
@@ -245,11 +245,11 @@
     let stores = [];
     let items = [];
 
-    // Chaves atualizadas para a Versão 29
+    // Chaves atualizadas para a Versão 30
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v29');
-        const savedItems = localStorage.getItem('mc_items_v29');
+        const savedStores = localStorage.getItem('mc_stores_v30');
+        const savedItems = localStorage.getItem('mc_items_v30');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -259,8 +259,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v29', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v29', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v30', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v30', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -341,7 +341,7 @@
               return `
                 <td class="p-2.5 text-center whitespace-nowrap w-[95px] min-w-[95px]">
                   <div class="flex flex-col items-center justify-center">
-                    <span class="inline-block px-2 py-0.5 rounded-lg text-xs font-bold leading-tight ${isCheapest ? 'bg-emerald-600 text-white shadow-sm' : 'opacity-70'}">
+                    <span class="inline-block px-1.5 py-0.5 rounded-lg text-[11px] font-bold leading-tight ${isCheapest ? 'bg-emerald-600 text-white shadow-sm' : 'opacity-70'}">
                       ${formatCurrency(price)}
                     </span>
                     ${storeNote ? `<span class="text-[9px] opacity-50 font-medium truncate max-w-[85px] mt-0.5">${storeNote}</span>` : ''}
