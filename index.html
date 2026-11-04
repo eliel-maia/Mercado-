@@ -6,37 +6,57 @@
   <title>Mercado Compare</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Estilos base para garantir o fundo #121212 */
+    /* Variaveis de cores para Tema Claro e Escuro */
+    :root {
+      --bg-page: #F1F1F3;
+      --bg-card: #FCFCFE;
+      --border-color: #F6F6F8;
+      --bg-input: #F9FAFC;
+      --text-main: #1c1c1e;
+      --text-sub: #6e6e73;
+      --sticky-bg: #F9FAFC;
+    }
+
+    html.dark {
+      --bg-page: #121212;
+      --bg-card: #1e1e1e;
+      --border-color: #2c2c2e;
+      --bg-input: #121212;
+      --text-main: #f4f4f5;
+      --text-sub: #a1a1aa;
+      --sticky-bg: #18181b;
+    }
+
     html, body {
-      background-color: #121212 !important;
-      color: #f4f4f5 !important;
+      background-color: var(--bg-page) !important;
+      color: var(--text-main) !important;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     
     .app-card {
-      background-color: #1e1e1e !important;
-      border-color: #2c2c2e !important;
+      background-color: var(--bg-card) !important;
+      border-color: var(--border-color) !important;
     }
 
     input, select {
-      background-color: #121212 !important;
-      color: #ffffff !important;
-      border-color: #2c2c2e !important;
+      background-color: var(--bg-input) !important;
+      color: var(--text-main) !important;
+      border-color: var(--border-color) !important;
     }
 
     .sticky-col {
       position: sticky;
       left: 0;
       z-index: 10;
-      background-color: #1e1e1e !important;
+      background-color: var(--bg-card) !important;
     }
     .sticky-header, .sticky-top-left {
       position: sticky;
       top: 0;
       z-index: 20;
-      background-color: #18181b !important;
+      background-color: var(--sticky-bg) !important;
     }
     .sticky-top-left {
       z-index: 30;
@@ -52,7 +72,7 @@
     }
   </style>
 </head>
-<body class="bg-[#121212] text-zinc-100 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
 
   <!-- Main Container -->
   <main class="flex-1 w-full space-y-3 pt-2 pb-6">
@@ -61,42 +81,47 @@
     <div class="px-2 sm:px-3">
       <div class="max-w-md mx-auto app-card p-4 rounded-3xl shadow-xl border space-y-3.5 relative overflow-hidden">
         
-        <!-- Linha 1: Marca + Restauração -->
+        <!-- Linha 1: Marca + Alternador de Tema + Restauração -->
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-2.5">
-            <div class="bg-[#2c2c2e] text-[#5856d6] p-2 rounded-2xl shadow-inner">
+            <div class="bg-[#5856d6]/10 text-[#5856d6] p-2 rounded-2xl shadow-inner">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
               </svg>
             </div>
             <div>
-              <h1 class="text-base font-bold leading-tight tracking-tight text-white">Mercado Compare</h1>
-              <p class="text-[10px] text-zinc-400 font-medium">Gestão e Comparação de Preços</p>
+              <h1 class="text-base font-bold leading-tight tracking-tight">Mercado Compare</h1>
+              <p class="text-[10px] opacity-60 font-medium">Gestão e Comparação de Preços</p>
             </div>
           </div>
 
+          <!-- Botões de Ação (Tema e Reset) -->
           <div class="flex items-center space-x-1.5">
-            <button id="resetBtn" title="Restaurar dados" class="p-2 bg-[#2c2c2e] hover:bg-[#3a3a3c] text-zinc-300 rounded-xl transition-all shadow-sm">
-              <svg class="w-4 h-4 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            <button id="themeToggleBtn" title="Alternar Tema" class="p-2 border border-[var(--border-color)] bg-[var(--bg-input)] hover:opacity-80 rounded-xl transition-all shadow-sm">
+              <svg id="sunIcon" class="w-4 h-4 text-amber-400 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+              <svg id="moonIcon" class="w-4 h-4 text-[#5856d6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.03 9.03 0 0012 21a9.03 9.03 0 008.354-5.646z"></path></svg>
+            </button>
+            <button id="resetBtn" title="Restaurar dados" class="p-2 border border-[var(--border-color)] bg-[var(--bg-input)] hover:opacity-80 rounded-xl transition-all shadow-sm">
+              <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
             </button>
           </div>
         </div>
 
         <!-- Linha 2: Barra de Pesquisa -->
         <div class="relative w-full">
-          <input type="text" id="searchInput" placeholder="Pesquisar..." class="w-full pl-9 pr-3 py-2 text-xs text-white placeholder-zinc-500 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-medium">
-          <svg class="w-4 h-4 text-zinc-500 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <input type="text" id="searchInput" placeholder="Pesquisar..." class="w-full pl-9 pr-3 py-2 text-xs placeholder-zinc-400 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-medium">
+          <svg class="w-4 h-4 opacity-40 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
 
-        <!-- Linha 3: Botões Principais (Azul / Violeta #5856d6) -->
+        <!-- Linha 3: Botões Principais -->
         <div class="flex items-center gap-2 pt-0.5">
           <button id="addItemBtn" class="flex-1 bg-[#5856d6] hover:bg-[#4f46e5] active:bg-[#4338ca] text-white py-2 px-3 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-md transition-all active:scale-95">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
             <span>Novo Item</span>
           </button>
 
-          <button id="manageStoresBtn" class="flex-1 bg-[#2c2c2e] hover:bg-[#3a3a3c] text-zinc-200 py-2 px-3 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1.5 border border-[#3a3a3c] shadow-sm transition-all active:scale-95">
-            <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0v-4m0 4h4m-4-4l-4 4m4-4l4 4"></path></svg>
+          <button id="manageStoresBtn" class="flex-1 bg-[var(--bg-input)] hover:opacity-80 py-2 px-3 rounded-2xl text-xs font-bold flex items-center justify-center space-x-1.5 border border-[var(--border-color)] shadow-sm transition-all active:scale-95">
+            <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0v-4m0 4h4m-4-4l-4 4m4-4l4 4"></path></svg>
             <span>Mercados</span>
           </button>
         </div>
@@ -107,22 +132,22 @@
     <!-- Store Summary Cards -->
     <div class="px-2 sm:px-3">
       <div class="max-w-md mx-auto app-card px-2 py-2.5 rounded-2xl border shadow-lg overflow-x-auto scrollbar-thin">
-        <div id="storeSummaries" class="flex items-center divide-x divide-[#2c2c2e] w-full min-w-max">
+        <div id="storeSummaries" class="flex items-center divide-x divide-[var(--border-color)] w-full min-w-max">
           <!-- Injetado via JS -->
         </div>
       </div>
     </div>
 
     <!-- Table Container (100% da Largura da Tela) -->
-    <div class="w-full app-card border-y border-[#2c2c2e] overflow-hidden shadow-lg">
+    <div class="w-full app-card border-y border-[var(--border-color)] overflow-hidden shadow-lg">
       <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-320px)] overflow-y-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
-            <tr id="tableHeaderRow" class="border-b border-[#2c2c2e] font-semibold text-zinc-400">
+            <tr id="tableHeaderRow" class="border-b border-[var(--border-color)] font-semibold opacity-70">
               <!-- Renderizado via JS -->
             </tr>
           </thead>
-          <tbody id="itemsTableBody" class="divide-y divide-[#2c2c2e]/60">
+          <tbody id="itemsTableBody" class="divide-y divide-[var(--border-color)]">
             <!-- Linhas dinâmicas -->
           </tbody>
         </table>
@@ -133,24 +158,24 @@
 
   <!-- Modal Adicionar/Editar Item -->
   <div id="itemModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3">
-    <div class="app-card rounded-3xl max-w-md w-full p-4 space-y-3 shadow-2xl border border-[#2c2c2e] max-h-[90vh] overflow-y-auto scrollbar-thin text-zinc-100">
-      <h3 id="modalTitle" class="text-sm font-bold text-white">Adicionar Item</h3>
+    <div class="app-card rounded-3xl max-w-md w-full p-4 space-y-3 shadow-2xl border border-[var(--border-color)] max-h-[90vh] overflow-y-auto scrollbar-thin">
+      <h3 id="modalTitle" class="text-sm font-bold">Adicionar Item</h3>
       
       <form id="itemForm" class="space-y-3">
         <input type="hidden" id="itemId">
         
         <div class="grid grid-cols-4 gap-2">
           <div class="col-span-2">
-            <label class="block text-[11px] font-semibold text-zinc-400 mb-1">Nome do Item</label>
-            <input type="text" id="itemName" required class="w-full px-3 py-2 text-xs text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
+            <label class="block text-[11px] font-semibold opacity-60 mb-1">Nome do Item</label>
+            <input type="text" id="itemName" required class="w-full px-3 py-2 text-xs border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
           </div>
           <div>
-            <label class="block text-[11px] font-semibold text-zinc-400 mb-1">Qtd</label>
-            <input type="number" id="itemQuantity" min="1" value="1" required class="w-full px-2.5 py-2 text-xs text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-bold text-center">
+            <label class="block text-[11px] font-semibold opacity-60 mb-1">Qtd</label>
+            <input type="number" id="itemQuantity" min="1" value="1" required class="w-full px-2.5 py-2 text-xs border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-bold text-center">
           </div>
           <div>
-            <label class="block text-[11px] font-semibold text-zinc-400 mb-1">Medida</label>
-            <select id="itemUnit" class="w-full px-2 py-2 text-xs text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-medium">
+            <label class="block text-[11px] font-semibold opacity-60 mb-1">Medida</label>
+            <select id="itemUnit" class="w-full px-2 py-2 text-xs border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6] font-medium">
               <option value="UN">UN</option>
               <option value="Kg">Kg</option>
               <option value="L">L</option>
@@ -163,12 +188,12 @@
         </div>
 
         <div id="priceInputs" class="space-y-2 pt-1">
-          <label class="block text-[11px] font-semibold text-zinc-400">Preço Unitário e Observações por Mercado</label>
+          <label class="block text-[11px] font-semibold opacity-60">Preço Unitário e Observações por Mercado</label>
           <!-- Inputs de preços dinâmicos -->
         </div>
 
         <div class="flex justify-end space-x-2 pt-2">
-          <button type="button" id="closeItemModal" class="px-4 py-2 text-xs font-medium text-zinc-400 hover:bg-[#2c2c2e] rounded-xl transition-colors">Cancelar</button>
+          <button type="button" id="closeItemModal" class="px-4 py-2 text-xs font-medium opacity-70 hover:opacity-100 rounded-xl transition-colors">Cancelar</button>
           <button type="submit" class="px-4 py-2 text-xs bg-[#5856d6] hover:bg-[#4f46e5] text-white rounded-xl font-bold shadow-md transition-colors">Salvar</button>
         </div>
       </form>
@@ -177,20 +202,20 @@
 
   <!-- Modal Gerenciar Mercados -->
   <div id="storeModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3">
-    <div class="app-card rounded-3xl max-w-sm w-full p-4 space-y-3.5 shadow-2xl border border-[#2c2c2e] text-zinc-100">
-      <h3 class="text-sm font-bold text-white">Gerenciar Mercados</h3>
+    <div class="app-card rounded-3xl max-w-sm w-full p-4 space-y-3.5 shadow-2xl border border-[var(--border-color)]">
+      <h3 class="text-sm font-bold">Gerenciar Mercados</h3>
       
       <div id="storeList" class="space-y-1.5 max-h-48 overflow-y-auto">
         <!-- Lista de mercados -->
       </div>
 
       <div class="flex gap-2 pt-1">
-        <input type="text" id="newStoreName" placeholder="Novo Mercado..." class="flex-1 px-3 py-2 text-xs text-white border border-[#2c2c2e] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
+        <input type="text" id="newStoreName" placeholder="Novo Mercado..." class="flex-1 px-3 py-2 text-xs border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
         <button id="addStoreBtn" class="px-3.5 py-2 text-xs bg-[#5856d6] hover:bg-[#4f46e5] text-white rounded-xl font-bold transition-colors">Adicionar</button>
       </div>
 
       <div class="flex justify-end pt-2">
-        <button id="closeStoreModal" class="px-4 py-2 text-xs font-medium text-zinc-400 hover:bg-[#2c2c2e] rounded-xl transition-colors">Fechar</button>
+        <button id="closeStoreModal" class="px-4 py-2 text-xs font-medium opacity-70 hover:opacity-100 rounded-xl transition-colors">Fechar</button>
       </div>
     </div>
   </div>
@@ -220,11 +245,11 @@
     let stores = [];
     let items = [];
 
-    // Chaves atualizadas para a Versão 27
+    // Chaves atualizadas para a Versão 29
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v28');
-        const savedItems = localStorage.getItem('mc_items_v28');
+        const savedStores = localStorage.getItem('mc_stores_v29');
+        const savedItems = localStorage.getItem('mc_items_v29');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -234,8 +259,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v27', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v27', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v28', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v28', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -252,20 +277,20 @@
     function renderHeaders() {
       const headerRow = document.getElementById('tableHeaderRow');
       let html = `
-        <th class="p-2.5 sticky-top-left border-r border-b border-[#2c2c2e] w-[145px] min-w-[145px] text-[11px] font-bold tracking-wider text-zinc-400">
+        <th class="p-2.5 sticky-top-left border-r border-b border-[var(--border-color)] w-[145px] min-w-[145px] text-[11px] font-bold tracking-wider">
           ITEM
         </th>
       `;
       
       stores.forEach(store => {
         html += `
-          <th class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[95px] min-w-[95px] sticky-header border-b border-[#2c2c2e] text-zinc-400">
+          <th class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[95px] min-w-[95px] sticky-header border-b border-[var(--border-color)]">
             ${store.name}
           </th>
         `;
       });
 
-      html += `<th class="p-2.5 text-center w-[36px] min-w-[36px] sticky-header border-b border-[#2c2c2e]"></th>`;
+      html += `<th class="p-2.5 text-center w-[36px] min-w-[36px] sticky-header border-b border-[var(--border-color)]"></th>`;
       headerRow.innerHTML = html;
     }
 
@@ -277,7 +302,7 @@
       if (filteredItems.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="${stores.length + 2}" class="p-8 text-center text-zinc-500 text-xs">
+            <td colspan="${stores.length + 2}" class="p-8 text-center opacity-50 text-xs">
               Nenhum produto encontrado.
             </td>
           </tr>
@@ -294,15 +319,15 @@
         
         const minPrice = validPrices.length > 0 ? Math.min(...validPrices) : null;
         
-        const qtyBadge = `<span class="inline-block px-1 bg-[#2c2c2e] text-zinc-300 border border-[#3a3a3c] rounded text-[9px] font-bold mt-0.5">Qtd: ${qty} • ${item.unit || 'UN'}</span>`;
+        const qtyBadge = `<span class="inline-block px-1 bg-[var(--bg-input)] border border-[var(--border-color)] rounded text-[9px] font-bold mt-0.5 opacity-80">Qtd: ${qty} • ${item.unit || 'UN'}</span>`;
 
         return `
-          <tr class="hover:bg-[#252528] transition-colors ${item.checked ? 'opacity-40 line-through bg-[#18181b]' : ''}">
-            <td class="p-2.5 sticky-col border-r border-[#2c2c2e] w-[145px] min-w-[145px]">
+          <tr class="hover:opacity-90 transition-colors ${item.checked ? 'opacity-40 line-through' : ''}">
+            <td class="p-2.5 sticky-col border-r border-[var(--border-color)] w-[145px] min-w-[145px]">
               <div class="flex items-center space-x-1.5">
-                <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded border-zinc-700 bg-zinc-800 text-[#5856d6] focus:ring-[#5856d6] w-3.5 h-3.5 flex-shrink-0">
+                <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded text-[#5856d6] focus:ring-[#5856d6] w-3.5 h-3.5 flex-shrink-0">
                 <div class="truncate">
-                  <div class="font-semibold text-zinc-100 truncate text-xs leading-snug">${item.name}</div>
+                  <div class="font-semibold truncate text-xs leading-snug">${item.name}</div>
                   <div>${qtyBadge}</div>
                 </div>
               </div>
@@ -316,17 +341,17 @@
               return `
                 <td class="p-2.5 text-center whitespace-nowrap w-[95px] min-w-[95px]">
                   <div class="flex flex-col items-center justify-center">
-                    <span class="inline-block px-2 py-0.5 rounded-lg text-xs font-bold leading-tight ${isCheapest ? 'bg-[#153422] text-[#4ade80] border border-[#166534] shadow-sm' : 'text-zinc-400'}">
+                    <span class="inline-block px-2 py-0.5 rounded-lg text-xs font-bold leading-tight ${isCheapest ? 'bg-emerald-600 text-white shadow-sm' : 'opacity-70'}">
                       ${formatCurrency(price)}
                     </span>
-                    ${storeNote ? `<span class="text-[9px] text-zinc-500 font-medium truncate max-w-[85px] mt-0.5">${storeNote}</span>` : ''}
+                    ${storeNote ? `<span class="text-[9px] opacity-50 font-medium truncate max-w-[85px] mt-0.5">${storeNote}</span>` : ''}
                   </div>
                 </td>
               `;
             }).join('')}
 
             <td class="p-2 text-center w-[36px] min-w-[36px]">
-              <button onclick="openEditItemModal('${item.id}')" class="text-zinc-500 hover:text-[#5856d6] p-1 rounded-lg transition-colors">
+              <button onclick="openEditItemModal('${item.id}')" class="opacity-50 hover:opacity-100 p-1 rounded-lg transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
               </button>
             </td>
@@ -373,13 +398,13 @@
         return `
           <div class="flex-1 px-2 text-center min-w-[75px] max-w-[100px]">
             <div class="flex items-center justify-center space-x-1">
-              <span class="text-[10px] font-semibold text-zinc-400 truncate">${store.name}</span>
-              ${hasBest ? '<span class="inline-block w-1.5 h-1.5 rounded-full bg-[#4ade80]"></span>' : ''}
+              <span class="text-[10px] font-semibold opacity-70 truncate">${store.name}</span>
+              ${hasBest ? '<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>' : ''}
             </div>
-            <div class="text-xs font-bold ${hasBest ? 'text-[#4ade80]' : 'text-zinc-500'} leading-tight mt-0.5 whitespace-nowrap">
+            <div class="text-xs font-bold ${hasBest ? 'text-emerald-500' : 'opacity-60'} leading-tight mt-0.5 whitespace-nowrap">
               ${formatCurrency(greenTotal)}
             </div>
-            <div class="text-[9px] text-zinc-500 mt-0.5 font-medium">${greenCount} verde${greenCount !== 1 ? 's' : ''}</div>
+            <div class="text-[9px] opacity-50 mt-0.5 font-medium">${greenCount} verde${greenCount !== 1 ? 's' : ''}</div>
           </div>
         `;
       }).join('');
@@ -407,11 +432,11 @@
 
       const priceInputsContainer = document.getElementById('priceInputs');
       priceInputsContainer.innerHTML = stores.map(store => `
-        <div class="space-y-1 bg-[#121212] p-2 rounded-xl border border-[#2c2c2e]">
-          <span class="text-xs text-zinc-300 font-bold block">${store.name}</span>
+        <div class="space-y-1 bg-[var(--bg-input)] p-2 rounded-xl border border-[var(--border-color)]">
+          <span class="text-xs font-bold block">${store.name}</span>
           <div class="flex gap-2">
-            <input type="number" step="0.01" data-store-id="${store.id}" value="${item && item.prices[store.id] !== undefined && item.prices[store.id] !== null ? item.prices[store.id] : ''}" placeholder="Preço (R$)" class="store-price-input w-28 px-2.5 py-1.5 text-xs text-white border border-[#2c2c2e] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
-            <input type="text" data-store-note-id="${store.id}" value="${item && item.storeNotes && item.storeNotes[store.id] ? item.storeNotes[store.id] : ''}" placeholder="Obs/Marca..." class="store-note-input flex-1 px-2.5 py-1.5 text-xs text-white border border-[#2c2c2e] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
+            <input type="number" step="0.01" data-store-id="${store.id}" value="${item && item.prices[store.id] !== undefined && item.prices[store.id] !== null ? item.prices[store.id] : ''}" placeholder="Preço (R$)" class="store-price-input w-28 px-2.5 py-1.5 text-xs border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
+            <input type="text" data-store-note-id="${store.id}" value="${item && item.storeNotes && item.storeNotes[store.id] ? item.storeNotes[store.id] : ''}" placeholder="Obs/Marca..." class="store-note-input flex-1 px-2.5 py-1.5 text-xs border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5856d6]">
           </div>
         </div>
       `).join('');
@@ -479,9 +504,9 @@
     function openStoreModal() {
       const storeList = document.getElementById('storeList');
       storeList.innerHTML = stores.map(store => `
-        <div class="flex items-center justify-between bg-[#121212] p-2.5 rounded-2xl border border-[#2c2c2e]">
-          <span class="text-xs font-semibold text-zinc-200">${store.name}</span>
-          <button onclick="removeStore('${store.id}')" class="text-rose-400 hover:text-rose-300 p-1 transition-colors">
+        <div class="flex items-center justify-between bg-[var(--bg-input)] p-2.5 rounded-2xl border border-[var(--border-color)]">
+          <span class="text-xs font-semibold">${store.name}</span>
+          <button onclick="removeStore('${store.id}')" class="text-rose-500 hover:opacity-80 p-1 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
           </button>
         </div>
@@ -523,7 +548,38 @@
       }
     };
 
+    // Alternador de Tema Claro / Escuro
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+        localStorage.setItem('mc_theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+        localStorage.setItem('mc_theme', 'light');
+      }
+    }
+
+    themeToggleBtn.onclick = () => {
+      const isCurrentlyDark = document.documentElement.classList.contains('dark');
+      applyTheme(!isCurrentlyDark);
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('mc_theme');
+      if (savedTheme === 'light') {
+        applyTheme(false);
+      } else {
+        applyTheme(true);
+      }
+
       initData();
       renderAll();
     });
