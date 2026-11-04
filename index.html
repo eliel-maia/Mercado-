@@ -245,11 +245,11 @@
     let stores = [];
     let items = [];
 
-    // Chaves atualizadas para a Versão 31
+    // Chaves atualizadas para a Versão 32
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v31');
-        const savedItems = localStorage.getItem('mc_items_v31');
+        const savedStores = localStorage.getItem('mc_stores_v32');
+        const savedItems = localStorage.getItem('mc_items_v32');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -259,8 +259,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v31', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v31', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v32', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v32', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -341,7 +341,7 @@
               return `
                 <td class="p-2.5 text-center whitespace-nowrap w-[95px] min-w-[95px]">
                   <div class="flex flex-col items-center justify-center">
-                    <span class="inline-block px-1.5 py-0.5 rounded-lg text-[10px] font-bold leading-tight ${isCheapest ? 'bg-emerald-600 text-white shadow-sm' : 'opacity-70'}">
+                    <span class="inline-block px-1.5 py-0.5 rounded-lg text-[11px] font-bold leading-tight ${isCheapest ? 'bg-emerald-600 text-white shadow-sm' : 'opacity-70'}">
                       ${formatCurrency(price)}
                     </span>
                     ${storeNote ? `<span class="text-[10px] opacity-60 font-medium truncate max-w-[85px] mt-0.5">${storeNote}</span>` : ''}
