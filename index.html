@@ -179,11 +179,6 @@
           </div>
         </div>
 
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-500 mb-1">Observação (ex: Marca, Detalhes)</label>
-          <input type="text" id="itemNote" class="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-600">
-        </div>
-
         <div id="priceInputs" class="space-y-2 pt-1">
           <label class="block text-[11px] font-semibold text-slate-500">Preço Unitário e Observações por Mercado</label>
           <!-- Inputs de preços + notas dinâmicos -->
@@ -227,17 +222,17 @@
     ];
 
     const defaultItems = [
-      { id: '1', name: 'Papel Higiênico H', quantity: 1, unit: 'UN', note: 'Familiar c/16 e c/24', checked: false, prices: { s1: 27.90, s2: 27.99, s3: 23.99, s4: 22.50 }, storeNotes: { s3: 'c/24 fls' } },
-      { id: '2', name: 'Listerine', quantity: 1, unit: 'UN', note: '1L / 500ml', checked: false, prices: { s1: 16.98, s2: 36.90, s3: 22.99, s4: 18.90 }, storeNotes: { s1: '500ml' } },
-      { id: '3', name: 'Asepxia', quantity: 1, unit: 'UN', note: '', checked: false, prices: { s1: 11.45, s2: 11.20, s3: null, s4: 10.99 }, storeNotes: {} },
-      { id: '4', name: 'Filtro Café', quantity: 2, unit: 'UN', note: '3 corações', checked: false, prices: { s1: 4.29, s2: 4.29, s3: 4.29, s4: 3.99 }, storeNotes: {} },
-      { id: '5', name: 'Guardanapo', quantity: 1, unit: 'UN', note: '200 folhas', checked: false, prices: { s1: 8.59, s2: 8.59, s3: 7.99, s4: 8.10 }, storeNotes: {} },
-      { id: '6', name: 'Mamão', quantity: 1, unit: 'Kg', note: 'por Kg', checked: false, prices: { s1: 11.98, s2: 13.90, s3: 9.99, s4: 10.50 }, storeNotes: {} },
-      { id: '7', name: 'Maçã', quantity: 1, unit: 'Kg', note: 'por Kg', checked: false, prices: { s1: 9.45, s2: 9.80, s3: 8.99, s4: 8.79 }, storeNotes: {} },
-      { id: '8', name: 'Banana', quantity: 1, unit: 'Kg', note: 'por Kg', checked: false, prices: { s1: 8.35, s2: 7.00, s3: 6.99, s4: 7.50 }, storeNotes: {} },
-      { id: '9', name: 'Uva', quantity: 1, unit: 'UN', note: '', checked: false, prices: { s1: 9.55, s2: null, s3: null, s4: 8.99 }, storeNotes: {} },
-      { id: '10', name: 'Pão de Forma', quantity: 1, unit: 'UN', note: '', checked: false, prices: { s1: 10.90, s2: 8.78, s3: 6.99, s4: 7.20 }, storeNotes: {} },
-      { id: '11', name: 'Bisnaguinha', quantity: 1, unit: 'UN', note: '', checked: false, prices: { s1: 9.79, s2: 7.88, s3: 7.99, s4: 6.89 }, storeNotes: {} }
+      { id: '1', name: 'Papel Higiênico H', quantity: 1, unit: 'UN', checked: false, prices: { s1: 27.90, s2: 27.99, s3: 23.99, s4: 22.50 }, storeNotes: { s3: 'c/24 fls' } },
+      { id: '2', name: 'Listerine', quantity: 1, unit: 'UN', checked: false, prices: { s1: 16.98, s2: 36.90, s3: 22.99, s4: 18.90 }, storeNotes: { s1: '500ml' } },
+      { id: '3', name: 'Asepxia', quantity: 1, unit: 'UN', checked: false, prices: { s1: 11.45, s2: 11.20, s3: null, s4: 10.99 }, storeNotes: {} },
+      { id: '4', name: 'Filtro Café', quantity: 2, unit: 'UN', checked: false, prices: { s1: 4.29, s2: 4.29, s3: 4.29, s4: 3.99 }, storeNotes: { s1: '3 corações' } },
+      { id: '5', name: 'Guardanapo', quantity: 1, unit: 'UN', checked: false, prices: { s1: 8.59, s2: 8.59, s3: 7.99, s4: 8.10 }, storeNotes: { s3: '200 folhas' } },
+      { id: '6', name: 'Mamão', quantity: 1, unit: 'Kg', checked: false, prices: { s1: 11.98, s2: 13.90, s3: 9.99, s4: 10.50 }, storeNotes: {} },
+      { id: '7', name: 'Maçã', quantity: 1, unit: 'Kg', checked: false, prices: { s1: 9.45, s2: 9.80, s3: 8.99, s4: 8.79 }, storeNotes: {} },
+      { id: '8', name: 'Banana', quantity: 1, unit: 'Kg', checked: false, prices: { s1: 8.35, s2: 7.00, s3: 6.99, s4: 7.50 }, storeNotes: {} },
+      { id: '9', name: 'Uva', quantity: 1, unit: 'UN', checked: false, prices: { s1: 9.55, s2: null, s3: null, s4: 8.99 }, storeNotes: {} },
+      { id: '10', name: 'Pão de Forma', quantity: 1, unit: 'UN', checked: false, prices: { s1: 10.90, s2: 8.78, s3: 6.99, s4: 7.20 }, storeNotes: {} },
+      { id: '11', name: 'Bisnaguinha', quantity: 1, unit: 'UN', checked: false, prices: { s1: 9.79, s2: 7.88, s3: 7.99, s4: 6.89 }, storeNotes: {} }
     ];
 
     let stores = [];
@@ -245,8 +240,8 @@
 
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v22');
-        const savedItems = localStorage.getItem('mc_items_v22');
+        const savedStores = localStorage.getItem('mc_stores_v23');
+        const savedItems = localStorage.getItem('mc_items_v23');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -256,8 +251,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v22', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v22', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v23', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v23', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -327,7 +322,6 @@
                   <div class="font-semibold text-slate-900 dark:text-slate-100 truncate text-xs leading-snug flex items-center flex-wrap gap-0.5">
                     <span class="truncate">${item.name}</span> ${qtyBadge}
                   </div>
-                  ${item.note ? `<div class="text-[10px] text-slate-400 dark:text-slate-500 truncate mt-0.5">${item.note}</div>` : ''}
                 </div>
               </div>
             </td>
@@ -430,7 +424,6 @@
       document.getElementById('itemName').value = item ? item.name : '';
       document.getElementById('itemQuantity').value = item ? (item.quantity || 1) : 1;
       document.getElementById('itemUnit').value = item ? (item.unit || 'UN') : 'UN';
-      document.getElementById('itemNote').value = item ? (item.note || '') : '';
 
       const priceInputsContainer = document.getElementById('priceInputs');
       priceInputsContainer.innerHTML = stores.map(store => `
@@ -457,7 +450,6 @@
       const name = document.getElementById('itemName').value;
       const quantity = parseInt(document.getElementById('itemQuantity').value) || 1;
       const unit = document.getElementById('itemUnit').value;
-      const note = document.getElementById('itemNote').value;
 
       const prices = {};
       const storeNotes = {};
@@ -480,7 +472,6 @@
           item.name = name;
           item.quantity = quantity;
           item.unit = unit;
-          item.note = note;
           item.prices = prices;
           item.storeNotes = storeNotes;
         }
@@ -490,7 +481,6 @@
           name,
           quantity,
           unit,
-          note,
           checked: false,
           prices,
           storeNotes
