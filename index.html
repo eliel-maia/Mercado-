@@ -139,7 +139,7 @@
 
     <!-- Table Container (100% da Largura da Tela) -->
     <div class="w-full app-card border-y border-[var(--border-color)] overflow-hidden shadow-lg">
-      <div class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-320px)] overflow-y-auto">
+      <div id="tableScrollContainer" class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-320px)] overflow-y-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
             <tr id="tableHeaderRow" class="border-b border-[var(--border-color)] font-semibold opacity-70">
@@ -245,11 +245,11 @@
     let items = [];
     let activeStoreFilter = null; // Guarda o ID do mercado filtrado atualmente
 
-    // Chaves atualizadas para a Versão 34
+    // Chaves atualizadas para a Versão 35
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v34');
-        const savedItems = localStorage.getItem('mc_items_v34');
+        const savedStores = localStorage.getItem('mc_stores_v35');
+        const savedItems = localStorage.getItem('mc_items_v35');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -259,8 +259,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v34', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v34', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v35', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v35', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -282,9 +282,9 @@
         </th>
       `;
       
-      stores.forEach(store => {
+      stores.forEach((store, index) => {
         html += `
-          <th class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[95px] min-w-[95px] sticky-header border-b border-[var(--border-color)]">
+          <th data-store-col="${store.id}" class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[95px] min-w-[95px] sticky-header border-b border-[var(--border-color)]">
             ${store.name}
           </th>
         `;
@@ -301,7 +301,6 @@
       let filteredItems = items.filter(item => {
         const matchesSearch = item.name.toLowerCase().includes(searchQuery);
         
-        // Se houver um filtro de mercado ativo, exibe apenas os itens que têm o menor preço (verde) nesse mercado
         if (activeStoreFilter) {
           const validPrices = Object.entries(item.prices)
             .filter(([storeId, price]) => stores.some(s => s.id === storeId) && price !== null && price > 0)
@@ -435,6 +434,16 @@
         activeStoreFilter = null; // Desmarca se clicar de novo
       } else {
         activeStoreFilter = storeId; // Ativa o filtro para este mercado
+        
+        // Rola a tabela horizontalmente para alinhar a coluna do mercado escolhido
+        setTimeout(() => {
+          const scrollContainer = document.getElementById('tableScrollContainer');
+          const targetTh = document.querySelector(`[data-store-col="${storeId}"]`);
+          if (scrollContainer && targetTh) {
+            const scrollLeftPos = targetTh.offsetLeft - 145; // compensa a coluna fixa do item
+            scrollContainer.scrollTo({ left: scrollLeftPos, behavior: 'smooth' });
+          }
+        }, 50);
       }
       renderItems();
       renderSummaries();
