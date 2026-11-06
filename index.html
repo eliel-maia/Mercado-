@@ -46,23 +46,23 @@
       border-color: var(--border-color) !important;
     }
 
-    /* Coluna fixa dos itens (à esquerda) com fundo opaco e z-index adequado */
+    /* Coluna fixa dos itens (à esquerda) com fundo totalmente opaco e z-index elevado */
     .sticky-col {
       position: sticky;
       left: 0;
-      z-index: 20;
+      z-index: 30;
       background-color: var(--bg-card) !important;
     }
     
-    /* Cabeçalhos dos mercados fixos no topo com fundo opaco */
+    /* Cabeçalhos dos mercados fixos no topo com fundo totalmente opaco */
     .sticky-header {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
       background-color: var(--sticky-bg) !important;
     }
 
-    /* Célula do canto superior esquerdo (ITEM): Máxima prioridade para cobrir tudo ao rolar */
+    /* Célula do canto superior esquerdo (ITEM): Máxima prioridade para cobrir tudo */
     .sticky-top-left {
       position: sticky;
       top: 0;
@@ -254,11 +254,11 @@
     let items = [];
     let activeStoreFilter = null; // Guarda o ID do mercado filtrado atualmente
 
-    // Chaves atualizadas para a Versão 38
+    // Chaves atualizadas para a Versão 39
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v38');
-        const savedItems = localStorage.getItem('mc_items_v38');
+        const savedStores = localStorage.getItem('mc_stores_v39');
+        const savedItems = localStorage.getItem('mc_items_v39');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -268,8 +268,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v38', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v38', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v39', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v39', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -286,20 +286,20 @@
     function renderHeaders() {
       const headerRow = document.getElementById('tableHeaderRow');
       let html = `
-        <th class="p-2.5 sticky-top-left border-r border-b border-[var(--border-color)] w-[145px] min-w-[145px] text-[11px] font-bold tracking-wider">
+        <th style="background-color: var(--sticky-bg) !important;" class="p-2.5 sticky-top-left border-r border-b border-[var(--border-color)] w-[145px] min-w-[145px] text-[11px] font-bold tracking-wider">
           ITEM
         </th>
       `;
       
       stores.forEach((store, index) => {
         html += `
-          <th data-store-col="${store.id}" class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[95px] min-w-[95px] sticky-header border-b border-[var(--border-color)]">
+          <th data-store-col="${store.id}" style="background-color: var(--sticky-bg) !important;" class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[95px] min-w-[95px] sticky-header border-b border-[var(--border-color)]">
             ${store.name}
           </th>
         `;
       });
 
-      html += `<th class="p-2.5 text-center w-[36px] min-w-[36px] sticky-header border-b border-[var(--border-color)]"></th>`;
+      html += `<th style="background-color: var(--sticky-bg) !important;" class="p-2.5 text-center w-[36px] min-w-[36px] sticky-header border-b border-[var(--border-color)]"></th>`;
       headerRow.innerHTML = html;
     }
 
@@ -349,8 +349,8 @@
         const qtyBadge = `<span class="inline-block px-1 bg-[var(--bg-input)] border border-[var(--border-color)] rounded text-[9px] font-bold mt-0.5 opacity-80">${qty} • ${item.unit || 'UN'}</span>`;
 
         return `
-          <tr class="hover:opacity-90 transition-colors ${item.checked ? 'opacity-40 line-through' : ''}">
-            <td class="p-2.5 sticky-col border-r border-[var(--border-color)] w-[145px] min-w-[145px]">
+          <tr class="hover:opacity-95 transition-colors ${item.checked ? 'opacity-40 line-through' : ''}">
+            <td style="background-color: var(--bg-card) !important;" class="p-2.5 sticky-col border-r border-[var(--border-color)] w-[145px] min-w-[145px]">
               <div class="flex items-center space-x-1.5">
                 <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded text-[#5856d6] focus:ring-[#5856d6] w-3.5 h-3.5 flex-shrink-0">
                 <div class="truncate">
