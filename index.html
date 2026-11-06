@@ -13,7 +13,7 @@
       --bg-input: #F9FAFC;
       --text-main: #1c1c1e;
       --text-sub: #6e6e73;
-      --sticky-bg: #FCFCFE;
+      --sticky-bg: #F9FAFC;
     }
 
     html.dark {
@@ -23,7 +23,7 @@
       --bg-input: #121212;
       --text-main: #f4f4f5;
       --text-sub: #a1a1aa;
-      --sticky-bg: #1e1e1e;
+      --sticky-bg: #18181b;
     }
 
     html, body {
@@ -43,31 +43,6 @@
       background-color: var(--bg-input) !important;
       color: var(--text-main) !important;
       border-color: var(--border-color) !important;
-    }
-
-    /* Trava a Coluna ITEM à esquerda com fundo 100% sólido */
-    .sticky-col {
-      position: sticky !important;
-      left: 0 !important;
-      z-index: 30 !important;
-      background-color: var(--bg-card) !important;
-    }
-    
-    /* Trava o Cabeçalho dos Mercados no topo com fundo 100% sólido */
-    .sticky-header {
-      position: sticky !important;
-      top: 0 !important;
-      z-index: 20 !important;
-      background-color: var(--bg-card) !important;
-    }
-
-    /* Trava a célula ITEM no topo e à esquerda (Cruzamento) com prioridade máxima */
-    .sticky-top-left {
-      position: sticky !important;
-      top: 0 !important;
-      left: 0 !important;
-      z-index: 50 !important;
-      background-color: var(--bg-card) !important;
     }
 
     .scrollbar-thin::-webkit-scrollbar {
@@ -253,11 +228,11 @@
     let items = [];
     let activeStoreFilter = null;
 
-    // Chaves atualizadas para a Versão 40
+    // Chaves atualizadas para a Versão 41
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v40');
-        const savedItems = localStorage.getItem('mc_items_v40');
+        const savedStores = localStorage.getItem('mc_stores_v41');
+        const savedItems = localStorage.getItem('mc_items_v41');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -267,8 +242,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v40', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v40', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v41', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v41', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -284,21 +259,23 @@
 
     function renderHeaders() {
       const headerRow = document.getElementById('tableHeaderRow');
+      // Célula ITEM (Canto superior esquerdo): z-index 50 com fundo 100% sólido inline
       let html = `
-        <th class="p-2.5 sticky-top-left border-r border-b border-[var(--border-color)] w-[145px] min-w-[145px] text-[11px] font-bold tracking-wider">
+        <th style="position: sticky; top: 0; left: 0; z-index: 50; background-color: var(--bg-card);" class="p-2.5 border-r border-b border-[var(--border-color)] w-[145px] min-w-[145px] text-[11px] font-bold tracking-wider">
           ITEM
         </th>
       `;
       
+      // Cabeçalhos dos mercados: z-index 40 com fundo 100% sólido inline
       stores.forEach((store) => {
         html += `
-          <th data-store-col="${store.id}" class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[95px] min-w-[95px] sticky-header border-b border-[var(--border-color)]">
+          <th data-store-col="${store.id}" style="position: sticky; top: 0; z-index: 40; background-color: var(--bg-card);" class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[95px] min-w-[95px] border-b border-[var(--border-color)]">
             ${store.name}
           </th>
         `;
       });
 
-      html += `<th class="p-2.5 text-center w-[36px] min-w-[36px] sticky-header border-b border-[var(--border-color)]"></th>`;
+      html += `<th style="position: sticky; top: 0; z-index: 40; background-color: var(--bg-card);" class="p-2.5 text-center w-[36px] min-w-[36px] border-b border-[var(--border-color)]"></th>`;
       headerRow.innerHTML = html;
     }
 
@@ -349,7 +326,8 @@
 
         return `
           <tr class="hover:opacity-95 transition-colors ${item.checked ? 'opacity-40 line-through' : ''}">
-            <td class="p-2.5 sticky-col border-r border-[var(--border-color)] w-[145px] min-w-[145px]">
+            <!-- Coluna Fixa do Item: z-index 30 com fundo 100% sólido inline para evitar transparência -->
+            <td style="position: sticky; left: 0; z-index: 30; background-color: var(--bg-card);" class="p-2.5 border-r border-[var(--border-color)] w-[145px] min-w-[145px]">
               <div class="flex items-center space-x-1.5">
                 <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded text-[#5856d6] focus:ring-[#5856d6] w-3.5 h-3.5 flex-shrink-0">
                 <div class="truncate">
