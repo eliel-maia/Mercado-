@@ -6,7 +6,6 @@
   <title>Mercado Compare</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Variáveis de cores para Tema Claro e Escuro */
     :root {
       --bg-page: #F1F1F3;
       --bg-card: #FCFCFE;
@@ -14,7 +13,7 @@
       --bg-input: #F9FAFC;
       --text-main: #1c1c1e;
       --text-sub: #6e6e73;
-      --sticky-bg: #F9FAFC;
+      --sticky-bg: #FCFCFE;
     }
 
     html.dark {
@@ -24,7 +23,7 @@
       --bg-input: #121212;
       --text-main: #f4f4f5;
       --text-sub: #a1a1aa;
-      --sticky-bg: #18181b;
+      --sticky-bg: #1e1e1e;
     }
 
     html, body {
@@ -46,29 +45,29 @@
       border-color: var(--border-color) !important;
     }
 
-    /* Coluna fixa dos itens (à esquerda) com fundo totalmente opaco e z-index elevado */
+    /* Trava a Coluna ITEM à esquerda com fundo 100% sólido */
     .sticky-col {
-      position: sticky;
-      left: 0;
-      z-index: 30;
+      position: sticky !important;
+      left: 0 !important;
+      z-index: 30 !important;
       background-color: var(--bg-card) !important;
     }
     
-    /* Cabeçalhos dos mercados fixos no topo com fundo totalmente opaco */
+    /* Trava o Cabeçalho dos Mercados no topo com fundo 100% sólido */
     .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background-color: var(--sticky-bg) !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 20 !important;
+      background-color: var(--bg-card) !important;
     }
 
-    /* Célula do canto superior esquerdo (ITEM): Máxima prioridade para cobrir tudo */
+    /* Trava a célula ITEM no topo e à esquerda (Cruzamento) com prioridade máxima */
     .sticky-top-left {
-      position: sticky;
-      top: 0;
-      left: 0;
-      z-index: 50;
-      background-color: var(--sticky-bg) !important;
+      position: sticky !important;
+      top: 0 !important;
+      left: 0 !important;
+      z-index: 50 !important;
+      background-color: var(--bg-card) !important;
     }
 
     .scrollbar-thin::-webkit-scrollbar {
@@ -146,12 +145,12 @@
       </div>
     </div>
 
-    <!-- Table Container (100% da Largura da Tela) -->
+    <!-- Table Container com Altura Definida para Scroll Interno Isolado -->
     <div class="w-full app-card border-y border-[var(--border-color)] overflow-hidden shadow-lg">
-      <div id="tableScrollContainer" class="overflow-x-auto scrollbar-thin max-h-[calc(100vh-320px)] overflow-y-auto">
-        <table class="w-full text-left border-collapse text-xs">
+      <div id="tableScrollContainer" class="overflow-auto scrollbar-thin max-h-[calc(100vh-320px)]">
+        <table class="w-full text-left border-collapse text-xs relative">
           <thead>
-            <tr id="tableHeaderRow" class="border-b border-[var(--border-color)] font-semibold opacity-70">
+            <tr id="tableHeaderRow" class="border-b border-[var(--border-color)] font-semibold">
               <!-- Renderizado via JS -->
             </tr>
           </thead>
@@ -252,13 +251,13 @@
 
     let stores = [];
     let items = [];
-    let activeStoreFilter = null; // Guarda o ID do mercado filtrado atualmente
+    let activeStoreFilter = null;
 
-    // Chaves atualizadas para a Versão 39
+    // Chaves atualizadas para a Versão 40
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v39');
-        const savedItems = localStorage.getItem('mc_items_v39');
+        const savedStores = localStorage.getItem('mc_stores_v40');
+        const savedItems = localStorage.getItem('mc_items_v40');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -268,8 +267,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v39', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v39', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v40', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v40', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -286,20 +285,20 @@
     function renderHeaders() {
       const headerRow = document.getElementById('tableHeaderRow');
       let html = `
-        <th style="background-color: var(--sticky-bg) !important;" class="p-2.5 sticky-top-left border-r border-b border-[var(--border-color)] w-[145px] min-w-[145px] text-[11px] font-bold tracking-wider">
+        <th class="p-2.5 sticky-top-left border-r border-b border-[var(--border-color)] w-[145px] min-w-[145px] text-[11px] font-bold tracking-wider">
           ITEM
         </th>
       `;
       
-      stores.forEach((store, index) => {
+      stores.forEach((store) => {
         html += `
-          <th data-store-col="${store.id}" style="background-color: var(--sticky-bg) !important;" class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[95px] min-w-[95px] sticky-header border-b border-[var(--border-color)]">
+          <th data-store-col="${store.id}" class="p-2.5 text-center uppercase tracking-wider text-[11px] font-bold w-[95px] min-w-[95px] sticky-header border-b border-[var(--border-color)]">
             ${store.name}
           </th>
         `;
       });
 
-      html += `<th style="background-color: var(--sticky-bg) !important;" class="p-2.5 text-center w-[36px] min-w-[36px] sticky-header border-b border-[var(--border-color)]"></th>`;
+      html += `<th class="p-2.5 text-center w-[36px] min-w-[36px] sticky-header border-b border-[var(--border-color)]"></th>`;
       headerRow.innerHTML = html;
     }
 
@@ -350,7 +349,7 @@
 
         return `
           <tr class="hover:opacity-95 transition-colors ${item.checked ? 'opacity-40 line-through' : ''}">
-            <td style="background-color: var(--bg-card) !important;" class="p-2.5 sticky-col border-r border-[var(--border-color)] w-[145px] min-w-[145px]">
+            <td class="p-2.5 sticky-col border-r border-[var(--border-color)] w-[145px] min-w-[145px]">
               <div class="flex items-center space-x-1.5">
                 <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="toggleItemCheck('${item.id}')" class="rounded text-[#5856d6] focus:ring-[#5856d6] w-3.5 h-3.5 flex-shrink-0">
                 <div class="truncate">
@@ -440,16 +439,15 @@
 
     function toggleStoreFilter(storeId) {
       if (activeStoreFilter === storeId) {
-        activeStoreFilter = null; // Desmarca se clicar de novo
+        activeStoreFilter = null;
       } else {
-        activeStoreFilter = storeId; // Ativa o filtro para este mercado
+        activeStoreFilter = storeId;
         
-        // Rola a tabela horizontalmente para alinhar a coluna do mercado escolhido
         setTimeout(() => {
           const scrollContainer = document.getElementById('tableScrollContainer');
           const targetTh = document.querySelector(`[data-store-col="${storeId}"]`);
           if (scrollContainer && targetTh) {
-            const scrollLeftPos = targetTh.offsetLeft - 145; // compensa a coluna fixa do item
+            const scrollLeftPos = targetTh.offsetLeft - 145;
             scrollContainer.scrollTo({ left: scrollLeftPos, behavior: 'smooth' });
           }
         }, 50);
