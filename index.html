@@ -168,7 +168,8 @@
           <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
           <span>Importar Arquivo JSON</span>
         </button>
-        <input type="file" id="importJsonInput" accept=".json" class="hidden">
+        <!-- Removido o filtro restritivo accept=".json" para o Android permitir selecionar o arquivo de backup livremente -->
+        <input type="file" id="importJsonInput" class="hidden">
       </div>
 
       <div class="pt-2 border-t border-[var(--border-color)] text-center">
@@ -270,11 +271,11 @@
     let items = [];
     let activeStoreFilter = null;
 
-    // Chaves atualizadas para a Versão 44
+    // Chaves atualizadas para a Versão 45
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v44');
-        const savedItems = localStorage.getItem('mc_items_v44');
+        const savedStores = localStorage.getItem('mc_stores_v45');
+        const savedItems = localStorage.getItem('mc_items_v45');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -284,8 +285,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v44', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v44', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v45', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v45', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -393,7 +394,6 @@
               `;
             }).join('')}
 
-            <!-- Botões de Ação na Linha: Editar (maior) e Apagar (Lixeira) -->
             <td class="p-2 text-center w-[72px] min-w-[72px]">
               <div class="flex items-center justify-center space-x-2">
                 <button onclick="openEditItemModal('${item.id}')" class="opacity-60 hover:opacity-100 p-1 rounded-lg transition-colors" title="Editar Item">
@@ -504,7 +504,7 @@
     // Exportar JSON
     document.getElementById('exportJsonBtn').onclick = () => {
       const data = {
-        version: 'v44',
+        version: 'v45',
         stores: stores,
         items: items
       };
@@ -518,7 +518,7 @@
       backupModal.classList.add('hidden');
     };
 
-    // Importar JSON Corrigido
+    // Importar JSON sem restrição de formato para o Android habilitar o arquivo
     document.getElementById('triggerImportBtn').onclick = () => {
       document.getElementById('importJsonInput').click();
     };
