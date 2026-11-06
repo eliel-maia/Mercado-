@@ -79,15 +79,17 @@
 
           <!-- Botões de Ação (Tema e Database Backup) -->
           <div class="flex items-center space-x-1.5">
-            <button id="themeToggleBtn" title="Alternar Tema" class="p-2 border border-[var(--border-color)] bg-[var(--bg-input)] hover:opacity-80 rounded-xl transition-all shadow-sm">
+            <button id="themeToggleBtn" title="Alternar Tema" class="p-2.5 border border-[var(--border-color)] bg-[var(--bg-input)] hover:opacity-80 rounded-xl transition-all shadow-sm flex items-center justify-center">
               <svg id="sunIcon" class="w-4 h-4 text-amber-400 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
               <svg id="moonIcon" class="w-4 h-4 text-[#5856d6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.03 9.03 0 0012 21a9.03 9.03 0 008.354-5.646z"></path></svg>
             </button>
             
-            <!-- Botão de Backup / Database substituindo o reset -->
-            <button id="backupModalBtn" title="Backup e Restaurar" class="p-2 border border-[var(--border-color)] bg-[var(--bg-input)] hover:opacity-80 rounded-xl transition-all shadow-sm text-[var(--text-main)]">
-              <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8-4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+            <!-- Botão de Backup / Database visível e nítido -->
+            <button id="backupModalBtn" title="Backup e Restaurar" class="p-2.5 border border-[var(--border-color)] bg-[var(--bg-input)] hover:opacity-80 rounded-xl transition-all shadow-sm flex items-center justify-center text-[var(--text-main)]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12C21 13.66 16.97 15 12 15C7.03 15 3 13.66 3 12"></path>
+                <path d="M3 5V19C3 20.66 7.03 22 12 22C16.97 22 21 20.66 21 19V5"></path>
               </svg>
             </button>
           </div>
@@ -146,7 +148,6 @@
   <div id="backupModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3">
     <div class="app-card rounded-3xl max-w-sm w-full p-5 space-y-4 shadow-2xl border border-[var(--border-color)] relative">
       
-      <!-- Cabeçalho do Modal -->
       <div class="flex items-center justify-between">
         <h3 class="text-sm font-bold">Backup e Restaurar</h3>
         <button id="closeBackupModal" class="opacity-60 hover:opacity-100 p-1">
@@ -158,7 +159,6 @@
         Exporte seus dados em um arquivo JSON para salvar em seu computador/celular ou importar em outro dispositivo.
       </p>
 
-      <!-- Botões de Ação de Backup -->
       <div class="space-y-2 pt-1">
         <button id="exportJsonBtn" class="w-full py-2.5 px-3 bg-[var(--bg-input)] hover:opacity-80 border border-[var(--border-color)] rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm transition-all">
           <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
@@ -172,7 +172,6 @@
         </label>
       </div>
 
-      <!-- Reset / Dados Iniciais -->
       <div class="pt-2 border-t border-[var(--border-color)] text-center">
         <button id="resetDataBtn" class="text-rose-500 hover:opacity-80 text-[11px] font-bold transition-colors">
           Resetar para Dados Iniciais
@@ -272,11 +271,11 @@
     let items = [];
     let activeStoreFilter = null;
 
-    // Chaves atualizadas para a Versão 42
+    // Chaves atualizadas para a Versão 43
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v42');
-        const savedItems = localStorage.getItem('mc_items_v42');
+        const savedStores = localStorage.getItem('mc_stores_v43');
+        const savedItems = localStorage.getItem('mc_items_v43');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -286,8 +285,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v42', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v42', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v43', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v43', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -492,7 +491,7 @@
     // Exportar JSON
     document.getElementById('exportJsonBtn').onclick = () => {
       const data = {
-        version: 'v42',
+        version: 'v43',
         stores: stores,
         items: items
       };
@@ -677,7 +676,7 @@
       } else {
         document.documentElement.classList.remove('dark');
         sunIcon.classList.add('hidden');
-        moonIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
         localStorage.setItem('mc_theme', 'light');
       }
     }
