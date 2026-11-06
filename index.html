@@ -46,25 +46,28 @@
       border-color: var(--border-color) !important;
     }
 
+    /* Coluna fixa dos itens (à esquerda) com fundo opaco e z-index adequado */
     .sticky-col {
       position: sticky;
       left: 0;
-      z-index: 10;
+      z-index: 20;
       background-color: var(--bg-card) !important;
     }
     
-    /* Cabeçalhos fixos com fundo opaco para não vazar o texto por trás */
+    /* Cabeçalhos dos mercados fixos no topo com fundo opaco */
     .sticky-header {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 10;
       background-color: var(--sticky-bg) !important;
     }
+
+    /* Célula do canto superior esquerdo (ITEM): Máxima prioridade para cobrir tudo ao rolar */
     .sticky-top-left {
       position: sticky;
       top: 0;
       left: 0;
-      z-index: 40;
+      z-index: 50;
       background-color: var(--sticky-bg) !important;
     }
 
@@ -251,11 +254,11 @@
     let items = [];
     let activeStoreFilter = null; // Guarda o ID do mercado filtrado atualmente
 
-    // Chaves atualizadas para a Versão 37
+    // Chaves atualizadas para a Versão 38
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v37');
-        const savedItems = localStorage.getItem('mc_items_v37');
+        const savedStores = localStorage.getItem('mc_stores_v38');
+        const savedItems = localStorage.getItem('mc_items_v38');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -265,8 +268,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v37', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v37', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v38', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v38', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
