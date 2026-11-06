@@ -84,7 +84,6 @@
               <svg id="moonIcon" class="w-4 h-4 text-[#5856d6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.03 9.03 0 0012 21a9.03 9.03 0 008.354-5.646z"></path></svg>
             </button>
             
-            <!-- Botão de Backup / Database visível e nítido -->
             <button id="backupModalBtn" title="Backup e Restaurar" class="p-2.5 border border-[var(--border-color)] bg-[var(--bg-input)] hover:opacity-80 rounded-xl transition-all shadow-sm flex items-center justify-center text-[var(--text-main)]">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
@@ -165,11 +164,11 @@
           <span>Exportar Dados (JSON)</span>
         </button>
 
-        <label class="w-full py-2.5 px-3 bg-[var(--bg-input)] hover:opacity-80 border border-[var(--border-color)] rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm transition-all cursor-pointer">
+        <button id="triggerImportBtn" class="w-full py-2.5 px-3 bg-[var(--bg-input)] hover:opacity-80 border border-[var(--border-color)] rounded-2xl text-xs font-bold flex items-center justify-center space-x-2 shadow-sm transition-all cursor-pointer">
           <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
           <span>Importar Arquivo JSON</span>
-          <input type="file" id="importJsonInput" accept=".json" class="hidden">
-        </label>
+        </button>
+        <input type="file" id="importJsonInput" accept=".json" class="hidden">
       </div>
 
       <div class="pt-2 border-t border-[var(--border-color)] text-center">
@@ -271,11 +270,11 @@
     let items = [];
     let activeStoreFilter = null;
 
-    // Chaves atualizadas para a Versão 43
+    // Chaves atualizadas para a Versão 44
     function initData() {
       try {
-        const savedStores = localStorage.getItem('mc_stores_v43');
-        const savedItems = localStorage.getItem('mc_items_v43');
+        const savedStores = localStorage.getItem('mc_stores_v44');
+        const savedItems = localStorage.getItem('mc_items_v44');
         stores = savedStores ? JSON.parse(savedStores) : defaultStores;
         items = savedItems ? JSON.parse(savedItems) : defaultItems;
       } catch (e) {
@@ -285,8 +284,8 @@
     }
 
     function saveData() {
-      localStorage.setItem('mc_stores_v43', JSON.stringify(stores));
-      localStorage.setItem('mc_items_v43', JSON.stringify(items));
+      localStorage.setItem('mc_stores_v44', JSON.stringify(stores));
+      localStorage.setItem('mc_items_v44', JSON.stringify(items));
     }
 
     function formatCurrency(value) {
@@ -316,7 +315,7 @@
         `;
       });
 
-      html += `<th style="position: sticky; top: 0; z-index: 40; background-color: var(--bg-card);" class="p-2.5 text-center w-[36px] min-w-[36px] border-b border-[var(--border-color)]"></th>`;
+      html += `<th style="position: sticky; top: 0; z-index: 40; background-color: var(--bg-card);" class="p-2.5 text-center w-[72px] min-w-[72px] border-b border-[var(--border-color)]"></th>`;
       headerRow.innerHTML = html;
     }
 
@@ -394,10 +393,16 @@
               `;
             }).join('')}
 
-            <td class="p-2 text-center w-[36px] min-w-[36px]">
-              <button onclick="openEditItemModal('${item.id}')" class="opacity-50 hover:opacity-100 p-1 rounded-lg transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-              </button>
+            <!-- Botões de Ação na Linha: Editar (maior) e Apagar (Lixeira) -->
+            <td class="p-2 text-center w-[72px] min-w-[72px]">
+              <div class="flex items-center justify-center space-x-2">
+                <button onclick="openEditItemModal('${item.id}')" class="opacity-60 hover:opacity-100 p-1 rounded-lg transition-colors" title="Editar Item">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                </button>
+                <button onclick="deleteItem('${item.id}')" class="text-rose-500 hover:opacity-80 p-1 rounded-lg transition-colors" title="Apagar Item">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </button>
+              </div>
             </td>
           </tr>
         `;
@@ -483,6 +488,14 @@
       }
     }
 
+    function deleteItem(id) {
+      if (confirm('Deseja realmente apagar este item?')) {
+        items = items.filter(i => i.id !== id);
+        saveData();
+        renderAll();
+      }
+    }
+
     // Modal de Backup
     const backupModal = document.getElementById('backupModal');
     document.getElementById('backupModalBtn').onclick = () => backupModal.classList.remove('hidden');
@@ -491,7 +504,7 @@
     // Exportar JSON
     document.getElementById('exportJsonBtn').onclick = () => {
       const data = {
-        version: 'v43',
+        version: 'v44',
         stores: stores,
         items: items
       };
@@ -505,7 +518,11 @@
       backupModal.classList.add('hidden');
     };
 
-    // Importar JSON
+    // Importar JSON Corrigido
+    document.getElementById('triggerImportBtn').onclick = () => {
+      document.getElementById('importJsonInput').click();
+    };
+
     document.getElementById('importJsonInput').onchange = (e) => {
       const fileReader = new FileReader();
       if (e.target.files[0]) {
